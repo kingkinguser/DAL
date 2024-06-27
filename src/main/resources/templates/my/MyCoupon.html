@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/my-layout}">
+
+
+<!-- 2. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+    <script src="/my/js/myCoupon.js" defer></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/my/css/my-layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/my/css/myCoupon.css}">
+    <link rel="stylesheet"  th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}">
+</th:block>
+
+
+<th:block layout:fragment="content">
+    <!-- 4.2 Content -->
+    <section>
+        <div class="ct_content-wrap">
+            <div class="ct_subtitle">
+                내 쿠폰
+            </div>
+
+
+            <div th:if="${getCouponList != null and not #lists.isEmpty(getCouponList)}" class="ct-top">
+                <div class="ct-middle-box" th:each="getcoupon : ${getCouponList}">
+                    <div class="ct-middle-tit" th:text="${getcoupon.cpName}"></div>
+                    <div class="ct-middle-flex">
+                        <th:block th:if="${getcoupon.cpDisctType == '1'}">
+                            <div class="ct-middle-per" th:text="${getcoupon.cpDisct}"></div>
+                            <span>%</span>
+                        </th:block>
+                        <th:block th:if="${getcoupon.cpDisctType == '2'}">
+                            <div class="ct-middle-per" th:text="${getcoupon.cpDisct}"></div>
+                            <span>원</span>
+                        </th:block>
+                    </div>
+                    <div class="till-flex">
+                        <div class="ct-middle-till" th:text="${getcoupon.cpWdate}"></div>
+                        <span>까지</span>
+                    </div>
+                    <div class="ct-middle-own" id="btnOwn">보유중</div>
+                </div>
+
+                <div class="top-bottom-border"></div>
+
+            </div>
+
+
+
+            <div class="ct-middle">
+                <div class="ct-middle-box" th:each="coupon : ${couponList}">
+                    <div class="ct-middle-tit" th:text="${coupon.cpName}"></div>
+                    <div class="ct-middle-flex">
+                        <th:block th:if="${coupon.cpDisctType == '1'}">
+                            <div class="ct-middle-per" th:text="${coupon.cpDisct}"></div>
+                            <span>%</span>
+                        </th:block>
+                        <th:block th:if="${coupon.cpDisctType == '2'}">
+                            <div class="ct-middle-per" th:text="${coupon.cpDisct}"></div>
+                            <span>원</span>
+                        </th:block>
+                    </div>
+                    <div class="till-flex">
+                        <div class="ct-middle-till" th:text="${coupon.cpWdate}"></div>
+                        <span>까지</span>
+                    </div>
+                    <div class="ct-middle-get" id="btnGet" th:data-cpid="${coupon.cpId}">받기</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</html>

@@ -1,0 +1,94 @@
+/* 제목이랑 탭 관련*/
+
+.title{
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.tabs{
+    display: flex;
+    margin-bottom: 30px;
+
+}
+
+.tab-link1{
+    padding: 5px 0px;
+    padding-right: 15px;
+}
+
+.tab-link2{
+    border-left: 1px solid;
+    height: 32px;
+    padding: 5px 15px;
+}
+
+
+
+/* 게시판 관련 */
+.board-write{
+    border-top: 1px solid;
+    border-bottom: 1px solid #e8e8e8;
+    width: 100%;
+}
+
+.board-write th{
+    padding: 13px 0px;
+}
+
+.board-write td{
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    padding: 13px 0px;
+}
+
+.board-write td:nth-child(4){
+    text-align: left;
+}
+
+
+
+.board-reply{
+    border-top: 1px solid;
+    border-bottom: 1px solid #e8e8e8;
+    width: 100%;
+}
+
+.board-reply th{
+    padding: 13px 0px;
+}
+
+.board-reply td{
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    padding: 13px 0px;
+}
+
+.board-reply td:nth-child(3){
+    text-align: left;
+}
+
+
+
+
+/* 삭제 버튼 구간 관련 */
+.content-bottom{
+    display:flex;
+    justify-content: flex-end;
+
+}
+
+.btn-delete{
+    width: 80px;
+    margin-top: 20px;
+    background-color: #03012D;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 3px;
+    color: white;
+}
+

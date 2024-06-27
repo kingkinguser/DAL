@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!----------------------------------------------------------------------------------------------------------------------
+©Copyright 2023. DAL. All rights reserved.
+
+File Name       : _header.html
+Program Name    : 상담메인 헤더프레임 HTML
+Description     : 상담메인 헤더프레임 HTML
+Draft Author    : 이원정
+Draft Date      : 2023.11.10
+
+Revision History
+Ver.   Date          Revised By    Description
+------------------------------------------------------------------------------------------------------------------------
+0.1    2023.11.10    이원정         최초개발
+----------------------------------------------------------------------------------------------------------------------->
+
+<!--
+Contents
+
+1. Common Header
+
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- 1. Common Header -->
+<th:block th:fragment="headerFragment">
+
+    <header>
+        <div class="user-wrap">
+            <div class="cate-logo">
+                <!--<a th:href="@{/}">Drink All Liquor</a>-->
+                <a th:href="@{/}"><img th:src="@{/common/img/dalLogo.png}"></a>
+            </div>
+            <div class="cate-short">
+                <a th:href="@{/store/storeMain}">스토어</a>
+                <a th:href="@{/comm/commList}">커뮤니티</a>
+                <a th:href="@{/preferTest/preferTest}">술테스트</a>
+                <a th:href="@{/museum/MuseumMain}">주류박물관</a>
+                <a th:href="@{/admin/adminMain}">(임시)관리자</a>
+            </div>
+            <div class="user-menu">
+                <a  sec:authorize="isAnonymous()" th:href="@{/loginForm}">로그인</a>
+                <th:block sec:authorize="isAuthenticated()">
+                    <div>
+                        <a th:text="${#authentication.principal.userNick}"></a> 님
+                    </div>
+                    <a th:href="@{/my/MyWish}">
+                        <span data-tooltip="위시리스트">
+                            <img th:src="@{/main/img/heart-shape.png}">
+                        </span>
+                    </a>
+                    <a th:href="@{/store/order/storeCart}">
+                        <span data-tooltip="장바구니">
+                            <img th:src="@{/main/img/shopping-bag.png}">
+                        </span>
+                    </a>
+                    <a href="#" class="dropdown">
+                        <span data-tooltip="내정보" >
+                            <img id="dropdown" th:src="@{/main/img/user.png}">
+                        </span>
+                    </a>
+                    <div class="dropdownMenu" id="dropdownMenu" style="display: none;">
+                        <a th:href="@{/my/MyPageMain}">마이페이지</a>
+                        <a href="#">고객센터</a>
+                        <a href="#">
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit">로그아웃</button>
+                            </form>
+                        </a>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </header>
+</th:block>
+</html>

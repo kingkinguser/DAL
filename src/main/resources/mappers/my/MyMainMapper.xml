@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--
+    파일명        : MyMainMapper.xml
+    최초 작성자    : 박제형
+    최초 작성날짜   : 2024.02.05
+-->
+
+<mapper namespace="kr.co.Dal.my.mapper.MyMainMapper">
+
+    <!-- 쿠폰 개수 -->
+    <select id="couponGross" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            cp_user_tb
+        WHERE
+            use_stat = 1
+          AND
+            user_id = #{userId}
+    </select>
+
+
+    <!-- 사용가능한 적립금-->
+    <select id="pointGross" resultType="int">
+        SELECT
+            COALESCE(
+                    SUM(CASE WHEN pt.point_rdate IS NOT NULL THEN ot.od_sell_price * 0.01 ELSE 0 END) -
+                    SUM(CASE WHEN pt.point_stat = 0 THEN ot.od_sell_price * 0.01 ELSE 0 END) -
+                    SUM(CASE WHEN pt.point_stat = 2 THEN pt.od_use_point ELSE 0 END),
+                    0
+            ) AS point_calu
+        FROM
+            point_tb pt
+                JOIN
+            od_tb ot
+            ON
+                pt.od_id = ot.od_id
+        WHERE
+            pt.user_id = #{userId}
+    </select>
+
+
+
+    <!-- 위시리스트 목록 개수-->
+    <select id="wishGross" resultType="int">
+        SELECT COUNT(*)
+        FROM
+            (
+                SELECT
+                    lt.prod_id
+                FROM
+                    like_tb lt
+                        JOIN
+                    prod_tb pt
+                    ON
+                        lt.prod_id = pt.prod_id
+                        JOIN
+                    prod_img_tb pit
+                    ON
+                        lt.prod_id = pit.prod_id
+                WHERE
+                    lt.user_id = #{userId}
+                GROUP BY
+                    pit.prod_id
+            )
+                AS subquery;
+    </select>
+
+
+
+    <!-- 등급 보기 -->
+    <select id="rankView" resultType="String">
+        SELECT
+            user_grade
+        FROM
+            user_tb
+        WHERE
+            user_id = #{userId}
+    </select>
+
+
+
+
+
+    <!-- 주문 배송 목록 -->
+    <select id="orderViewList" resultType="kr.co.Dal.my.model.MyMainVO">
+        SELECT
+        ot.order_id,
+        GROUP_CONCAT(odt.order_rdate) AS order_rdates,
+        GROUP_CONCAT(odt.order_stts) AS order_sttss,
+        odt.order_rdate,
+        odt.order_stts,
+        GROUP_CONCAT(ot.prod_id) AS prod_ids,
+        GROUP_CONCAT(pt.prod_tit) AS prod_tits,
+        GROUP_CONCAT(ot.od_sell_price) AS od_sell_prices,
+        GROUP_CONCAT(ot.od_cnt) AS od_cnts,
+        GROUP_CONCAT(ot.od_stts) AS od_sttss
+        FROM
+        od_tb ot
+        JOIN
+        order_tb odt ON ot.order_id = odt.order_id
+        JOIN
+        prod_tb pt ON ot.prod_id = pt.prod_id
+        WHERE
+        ot.user_id = #{userId}
+        <choose>
+            <when test="odDateValue == 1">
+                AND odt.order_rdate >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+            </when>
+            <when test="odDateValue == 2">
+                AND odt.order_rdate >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+            </when>
+            <when test="odDateValue == 3">
+                AND odt.order_rdate >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+            </when>
+            <when test="odDateValue == 4">
+                AND odt.order_rdate >= DATE_SUB(NOW(), INTERVAL 1 YEAR)
+            </when>
+            <when test="odDateValue == 5">
+                AND odt.order_rdate >= DATE_SUB(NOW(), INTERVAL 2 YEAR)
+            </when>
+            <when test="odDateValue == 6">
+                AND odt.order_rdate >= DATE_SUB(NOW(), INTERVAL 3 YEAR)
+            </when>
+        </choose>
+        <choose>
+            <when test="odSttsValue == 1">
+                AND odt.order_stts = 1
+            </when>
+            <when test="odSttsValue == 2">
+                AND odt.order_stts = 2
+            </when>
+            <when test="odSttsValue == 3">
+                AND odt.order_stts = 3
+            </when>
+            <when test="odSttsValue == 4">
+                AND odt.order_stts = 4
+            </when>
+            <when test="odSttsValue == 5">
+                AND odt.order_stts = 5
+            </when>
+            <when test="odSttsValue == 6">
+                AND odt.order_stts = 6
+            </when>
+            <when test="odSttsValue == 7">
+                AND odt.order_stts = 7
+            </when>
+            <when test="odSttsValue == 8">
+                AND odt.order_stts = 8
+            </when>
+            <when test="odSttsValue == 9">
+                AND odt.order_stts = 9
+            </when>
+        </choose>
+        GROUP BY
+            ot.order_id
+        ORDER BY
+            order_rdate DESC
+    </select>
+
+
+</mapper>

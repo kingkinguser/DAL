@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 파일명        : MyCouponMapper.xml
+ 최초 작성자    : 박제형
+ 최초 작성날짜   : 2023.12.11
+-->
+
+<mapper namespace="kr.co.Dal.my.mapper.MyCouponMapper">
+    <select id="selectCouponList" resultType="kr.co.Dal.my.model.MyCouponVO">
+        SELECT
+            ct.cp_id,
+            ct.cp_name,
+            ct.cp_disct,
+            ct.cp_disct_type,
+            ct.cp_wdate
+        FROM
+            cp_tb ct
+        LEFT JOIN
+            cp_user_tb cut
+        ON
+            ct.cp_id = cut.cp_id
+        AND
+            cut.user_id = #{userId}
+        WHERE
+            ct.cp_grade = #{userGrade}
+        AND
+            cut.cp_user_id IS NULL
+    </select>
+
+
+    <select id="getCouponList" resultType="kr.co.Dal.my.model.MyCouponVO">
+        SELECT
+            ct.cp_id,
+            ct.cp_name,
+            DATE_FORMAT(ct.cp_wdate, '%Y-%m-%d') AS cp_wdate,
+            ct.cp_disct,
+            ct.cp_disct_type
+        FROM
+            cp_user_tb cut
+        JOIN
+            cp_tb ct
+        ON
+            cut.cp_id = ct.cp_id
+        WHERE
+            cut.use_stat = 1
+        AND
+            cut.user_id = #{userId}
+    </select>
+
+
+
+
+    <insert id="insertCoupon" parameterType="kr.co.Dal.my.model.MyCouponVO">
+        INSERT INTO cp_user_tb (cp_id, use_stat, user_id)
+        VALUES
+            (
+                #{cpId},
+                1,
+                #{userId}
+            )
+    </insert>
+
+
+
+
+
+
+
+
+
+</mapper>

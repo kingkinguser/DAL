@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!----------------------------------------------------------------------------------------------------------------------
+©Copyright 2023. DAL. All rights reserved.
+
+File Name       : commList.html
+Program Name    : 게시판
+Description     :
+Draft Author    :
+Draft Date      : 2023.11.10
+----------------------------------------------------------------------------------------------------------------------->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+
+<!-- 1. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+    <link rel="stylesheet" type="text/css" th:href="@{/comm/css/commWrite.css}">
+    <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="/comm/js/commWrite.js" defer></script>
+</th:block>
+
+<!-- 2. Page Content -->
+<th:block layout:fragment="content">
+    <!-- 3. Main -->
+    <main>
+        <div class="ct_main">
+            <!-- 4. Content -->
+            <section>
+                <!-- 4.2.1 Subtitle -->
+                <div class="ct_subtitle">
+                    <h3>글쓰기</h3>
+                </div>
+                <!-- 4.2.2 Board Content -->
+                <div class="ct_content">
+                    <form action="/comm/commAjaxWriteInsert" method="post" id="frm">
+                        <!-- CSRF 토큰을 input으로 추가 -->
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" th:if="${_csrf}" />
+                        <!-- CSRF 헤더를 input으로 추가 -->
+                        <input type="hidden" name="header" th:value="${_csrf.headerName}" th:if="${_csrf}" />
+
+                        <input type="hidden" id="bardId" name="bardId" th:value="${bardId}"/>
+
+                        <table class="tb tb_row">
+                            <colgroup>
+                                <col style="width:15%;" />
+                                <col style="width:35%;" />
+                                <col style="width:15%;" />
+                                <col style="width:35%;" />
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th scope="row">카테고리</th>
+                                <td>
+                                    <select id="bardType" name="bardType">
+                                        <option value="1">NOTICE</option>
+                                        <option value="2">REVIEW</option>
+                                        <option value="3">DAILY</option>
+                                    </select>
+                                </td>
+                                <th>제목 <span>*</span></th>
+                                <td colspan="3"><input type="text" id="bardTit" name="bardTit" placeholder="제목을 입력해 주세요." /></td>
+                            </tr>
+                            <tr>
+                                <th>내용 <span>*</span></th>
+                                <td colspan="3"><textarea id="bardCn" name="bardCn" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="button-container">
+                            <input type="button" id="save" class="save" value="저장">
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+</th:block>
+</html>
+
+<script>
+    let oEditors = []
+
+    smartEditor = function() {
+      nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "bardCn",
+        sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+        fCreator: "createSEditor2",
+        htParams: { fOnBeforeUnload : function(){}}
+      })
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        smartEditor();
+    });
+</script>

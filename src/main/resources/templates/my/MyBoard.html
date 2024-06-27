@@ -1,0 +1,106 @@
+<!--
+파일명        : MyBoard.html
+최초 작성자    : 박제형
+최초 작성날짜   : 2024.01.22
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/my-layout}">
+
+
+<!-- 2. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+    <link rel="stylesheet" type="text/css" th:href="@{/my/css/my-layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/my/css/myBoard.css}">
+    <script src="/my/js/myBoard.js" defer></script>
+    <link rel="stylesheet"  th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}">
+</th:block>
+
+
+<th:block layout:fragment="content">
+    <!-- 4.2 Content -->
+    <section>
+        <div class="ct_content-wrap">
+            <div class="ct_subtitle">
+                <div class="title" id="title1">내 게시글</div>
+            </div>
+            <div class="ct_search-wrap">
+                <form th:action="@{/my/MyBoard}" >
+                    <div>
+                        <select name="searchField">
+                            <option th:value="0" th:selected="${ph.sc.searchField == '0'}">ALL</option>
+                            <option th:value="1" th:selected="${ph.sc.searchField == '1'}">NOTICE</option>
+                            <option th:value="2" th:selected="${ph.sc.searchField == '2'}">REVIEW</option>
+                            <option th:value="3" th:selected="${ph.sc.searchField == '3'}">DAILY</option>
+                        </select>
+                        <input type="text" id="searchKeyword" name="searchKeyword"  placeholder="검색어를 입력하세요" th:value="${ph.sc.searchKeyword}">
+                    </div>
+                    <button type="submit" class="btn btnSearch" id="btnSearch">검색</button>
+                </form>
+            </div>
+            <div class="content-top">
+                <div id="boardTab" class="content-middle">
+                    <table class="board-write">
+                        <colgroup>
+                            <col style="width: 5px;">
+                            <col style="width: 50px;">
+                            <col style="width: 90px;">
+                            <col style="width: 230px;">
+                            <col style="width: 100px;">
+                            <col style="width: 30px;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="all_checkboxes"></th>
+                            <th>글 번호</th>
+                            <th>카테고리</th>
+                            <th>제목</th>
+                            <th>작성일시</th>
+                            <th>조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="board : ${boardList}">
+                        <tr>
+                            <td><input type="checkbox" th:data-bardid="${board.bardId}" th:data-bardtype="${board.bardType}" class="checkboxes"></td>
+                            <td th:text="${board.bardId}"></td>
+                            <td th:if="${board.bardType == 1}" th:text="공지"></td>
+                            <td th:if="${board.bardType == 2}" th:text="리뷰"></td>
+                            <td th:if="${board.bardType == 3}" th:text="일상"></td>
+                            <td>
+                                <a th:href="@{/comm/commView(bardId=${board.bardId})}" th:text="${board.bardTit}" th:data="${board.bardId}"></a>
+                            </td>
+                            <td th:text="${board.bardRdate}"></td>
+                            <td th:text="${board.bardCnt}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-bottom">
+                    <a id="btnDelete" class="btn-delete">삭제하기</a>
+                </div>
+
+            <!-- Pagination -->
+            <div class="pagination" th:object="${ph}" th:style="${#lists.size(boardList) == 0 ? 'visibility:hidden;':''}">
+                <th:block th:if="*{showPrev}">
+                    <a th:href="@{/my/MyBoard} + ${ph.sc.getQueryString(ph.beginPage-1)}" class="prev">< </a>
+                </th:block>
+                <th:block th:each="num:${#numbers.sequence(ph.beginPage, ph.endPage)}">
+                    <a th:href="@{/my/MyBoard} + ${ph.sc.getQueryString(num)}" th:class="${num == ph.sc.page ? 'num current':'num'}">
+                        [[${num}]]
+                    </a>
+                </th:block>
+                <th:block th:if="*{showNext}">
+                    <a th:href="@{/my/MyBoard} + ${ph.sc.getQueryString(ph.endPage+1)}" class="next"> ></a>
+                </th:block>
+            </div>
+
+
+        </div>
+    </section>
+</th:block>
+
+</html>

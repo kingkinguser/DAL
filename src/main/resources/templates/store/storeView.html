@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+
+
+<!-- 2. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+  <link rel="stylesheet" type="text/css" th:href="@{/common/css/layout.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/common/css/element.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/store/css/storeView.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/store/css/storeQnaWrite.css}">
+  <link rel="stylesheet"  href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}">
+
+  <script type="text/javascript" th:src="@{/store/js/storeView.js}" defer></script>
+  <script type="text/javascript" th:src="@{/store/js/storeQnaWrite.js}" defer></script>
+</th:block>
+/*
+File Name      : storeView.html
+Program Name   : 상품 상세 페이지
+Draft Author   : 김석진
+Draft Date     : 2024.01.14
+
+Revision History
+Ver.  Date          Revised By   Description
+------------------------------------------------------------------------------------------------------------------------
+0.1   2024.01.14    김석진       최초개발
+----------------------------------------------------------------------------------------------------------------------->
+*/
+
+<th:block layout:fragment="content">
+  <main>
+    <div class="ct_main">
+      <!-- 4.1 Main Topbar -->
+      <div class="ct_topbar">
+        <a href="#">전체</a>
+        <img th:src="@{/store/img/next.png}" style="width: 27px;"/>
+        <a href="#" th:text="${prodType}">
+        </a>
+      </div>
+      <!-- 4.2 Prod Thumbnail, Prod Info -->
+      <div class="ct_thumbnail-wrap w100ph">
+        <div class="ct_prod-img">
+          <img
+              src="http://placehold.it/580x650&text=Prod2"
+              class="prod-img w300px"
+          />
+        </div>
+        <div class="ct_prod-info">
+          <input type="hidden" th:attr="data-prodId=${prod.prodId}" />
+          <p class="prod-title" th:text="${prod.prodTit}"></p>
+          <div class="prod-hashtag-wrap">
+            <a href="#" class="prod-hashtag">#해시태그1</a>
+            <a href="#" class="prod-hashtag">#해시태그2</a>
+          </div>
+          <div class="prod-like-wrap">
+            <div style="display: flex; align-items: center">
+              <div class="star-area">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="25" fill="gold"><path d="M10 16.379l-6.173 3.245 1.179-6.874L.01 7.882l6.902-1.003L10 .624l3.087 6.255 6.902 1.003-4.995 4.868 1.18 6.874z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="25" fill="gold"><path d="M10 16.379l-6.173 3.245 1.179-6.874L.01 7.882l6.902-1.003L10 .624l3.087 6.255 6.902 1.003-4.995 4.868 1.18 6.874z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2.5 24 24" width="25" fill="gold" transform="scale(-1, 1)"><path d="M10 15.814L3.827 19.06l1.179-6.875L.01 7.317l6.902-1.003L10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814zm0-2.26l3.517 1.85-.672-3.917 2.846-2.774-3.932-.571L10 4.579 8.241 8.142l-3.932.571 2.846 2.774-.672 3.916L10 13.554zM10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814V.06z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2.5 24 24" width="25" fill="gold"><path d="M10 13.554l3.517 1.85-.672-3.917 2.846-2.774-3.932-.571L10 4.579 8.241 8.142l-3.932.571 2.846 2.774-.672 3.916L10 13.554zm0 2.26L3.827 19.06l1.179-6.875L.01 7.317l6.902-1.003L10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2.5 24 24" width="25" fill="gold"><path d="M10 13.554l3.517 1.85-.672-3.917 2.846-2.774-3.932-.571L10 4.579 8.241 8.142l-3.932.571 2.846 2.774-.672 3.916L10 13.554zm0 2.26L3.827 19.06l1.179-6.875L.01 7.317l6.902-1.003L10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814z"></path></svg>
+              </div>
+              <span>4.3(117개)</span>
+            </div>
+            <div style="display: flex; align-items: center">
+              <img th:src="@{/store/img/like_empty.png}" class="prod_like">
+              <span th:text="${prod.prodLike}"></span>
+            </div>
+          </div>
+          <div class="prod-price-wrap">
+            <div class="prod-count-wrap">
+              <a href="#" class="btn" style="width: 60px">-</a>
+              <span class="prod-count">3</span>
+              <a href="#" class="btn" style="width: 60px">+</a>
+<!--              <div>-->
+<!--                <img th:src="@{/store/img/minus.png}" style="width: 30px; height: 30px;">-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <span class="prod-count">5</span>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <img th:src="@{/store/img/plus.png}" style="width: 30px; height: 30px;">-->
+<!--              </div>-->
+            </div>
+            <div class="prod-price">
+              <p th:text="${prod.prodSalePrice} + '원'"></p>
+            </div>
+          </div>
+
+          <div class="center prod-price-wrap">
+            <a
+                href="/storeOrder"
+                class="btn"
+            >구매하기</a
+            >
+            <a
+                href="#"
+                class="btn"
+                style="
+                    background-color: #FFFFFF;
+                    color: #03012D;
+                  "
+            >장바구니</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- 4.3 Prod Detail, Delivery Info -->
+<!--      <div id="ct_midbar" class="ct_midbar mt40">-->
+        <ul id="ct_midbar" class="ct_midbar mt40">
+          <li class="midbar-title" th:attr="data-target='prod-1'">상품상세정보</li>
+          <li class="midbar-title" th:attr="data-target='prod-2'">배송안내</li>
+          <li class="midbar-title" th:attr="data-target='prod-3'">교환 및 환불안내</li>
+          <li class="midbar-title" th:attr="data-target='prod-4'">상품후기</li>
+          <li class="midbar-title" th:attr="data-target='prod-5'">상품문의</li>
+        </ul>
+      <div id="ct_prod">
+        <div class="prod-detail" id="prod-1"><h1>상세정보 이미지</h1></div>
+        <div class="prod-detail" id="prod-2">
+          <h1 class="mb10 mt10" style="font-size: x-large">배송 정보</h1>
+          <div>
+            <table style="border-top: 1px solid black; width:100%; border-bottom: 1px solid black; font-size: smaller;">
+              <colgroup>
+                <col style="width: 200px;">
+                <col>
+              </colgroup>
+              <tr class="info" style="border-bottom: 1px solid #e6e6e6;">
+                <th>
+                  <span>배송택배사</span>
+                </th>
+                <td>
+                  <div class="mt10 mb10">
+                    DAL Express
+                  </div>
+                </td>
+              </tr>
+              <tr class="info">
+                <th>
+                  <span>배송료</span>
+                </th>
+                <td>
+                  <div class="mt10 mb10">
+                    4,000원
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <h1 class="mb10 mt30" style="font-size: x-large">반품 정보</h1>
+          <div class="mb40">
+            <table style="border-top: 1px solid black; width:100%; border-bottom: 1px solid black; font-size: smaller;">
+              <colgroup>
+                <col style="width: 200px;">
+                <col>
+              </colgroup>
+              <tr class="info" style="border-bottom: 1px solid #e6e6e6;">
+                <th>
+                  <span>업체명</span>
+                </th>
+                <td>
+                  <div class="mt10 mb10">
+                    DAL Corporation
+                  </div>
+                </td>
+              </tr>
+              <tr class="info" style="border-bottom: 1px solid #e6e6e6;">
+                <th>
+                  <span>연락처</span>
+                </th>
+                <td>
+                  <div class="mt10 mb10">
+                    2311 - 2403
+                  </div>
+                </td>
+              </tr>
+              <tr class="info" style="border-bottom: 1px solid #e6e6e6;">
+                <th>
+                  <span>택배사</span>
+                </th>
+                <td>
+                  <div class="mt10 mb10">
+                    DAL Express
+                  </div>
+                </td>
+              </tr>
+              <tr class="info">
+                <th>
+                  <span>반품주소</span>
+                </th>
+                <td>
+                  <div class="mt10 mb10">
+                    서울특별시 OO구 OO동 DAL 빌딩
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="prod-detail" id="prod-3">
+          <h1 class="mb10" style="font-size: x-large">교환/반품/환불/취소 안내</h1>
+          <div>
+            <table style="border-top: 1px solid black; width:100%; border-bottom: 1px solid black; font-size: smaller;">
+              <colgroup>
+                <col style="width: 200px;">
+                <col>
+              </colgroup>
+              <tr class="info" style="border-bottom: 1px solid #e6e6e6;">
+                <th>
+                  <span>교환/반품/환불</span>
+                </th>
+                <td>
+                  <div style="margin: 10px 0px;">
+                    <ul class="ul">
+                      <li>
+                        교환/반품/환불 기간: 상품 수령 후 7일 이내 청약 철회(교환/반품)가 가능합니다(단, 재화 등의 내용이 표시ㆍ광고 내용과 다르거나 계약 내용과 다르게 이행된 때에는 당해 재화 등을 공급<br>&nbsp; 받은 날로부터 3월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약철회가 가능합니다)
+                      </li>
+                      <li>
+                        교환/반품 방법: 마이페이지를 통해 접수 부탁 드립니다
+                      </li>
+                      <li>
+                        교환/반품 처리 과정: [교환/반품신청내역]에서 확인 가능합니다
+                      </li>
+                      <li>
+                        교환/반품비: 고객님의 단순 변심에 의한 교환/반품 시 왕복 배송비는 고객 부담 입니다
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mb10">
+                    <dl>
+                      <dt>
+                        <span>* 다음의 경우에 해당하는 교환/반품은 청약 철회가 제한됩니다</span>
+                      </dt>
+                      <dd>
+                        <ul class="ul">
+                          <li>
+                            교환/반품 불가가 사전 고지된 일부 상품의 경우
+                          </li>
+                          <li>
+                            시간의 경과에 따라 재판매가 곤란할 정도로 재화 등의 가치가 현저히 감소한 경우
+                          </li>
+                          <li>
+                            복제가 가능한 재화 등의 포장이 훼손된 경우
+                          </li>
+                          <li>
+                            소비자의 책임 있는 사유로 상품 등이 개봉 또는 훼손된 경우(단, 상품 확인을 위한 포장 훼손 제외)
+                          </li>
+                          <li>
+                            소비자의 주문에 따라 개별적으로 생산되는 상품이 제작에 들어간 경우
+                          </li>
+                        </ul>
+                      </dd>
+                    </dl>
+                  </div>
+                </td>
+              </tr>
+              <tr class="info">
+                <th>
+                  <span>취소</span>
+                </th>
+                <td>
+                  <ul class="ul" style="margin: 10px 0px;">
+                    <li>모든 상품은 배송준비중 단계까지 취소 신청 가능합니다.</li>
+                    <li>주문제작/해외배송 상품의 경우 취소 신청 후 관리자의 주문 취소 확인이 필요합니다.</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="prod-detail" id="prod-4">
+          <h1>상품후기</h1>
+          <!--<table style="width: 100%;" class="center">
+            <colgroup>
+              <col style="width: 15%;" />
+              <col style="width: 65%;" />
+              <col style="width: 20%;" />
+            </colgroup>
+            <thead>
+            <tr>
+              <th colspan="3" style="float: left; padding-left: 10px;">
+                <ul class="review-wrap">
+                  <li class="review-sort">
+                    <a href="javascript:void(0);">최신순</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);">별점높은순</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);">별점낮은순</a>
+                  </li>
+                </ul>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+
+              </tr>
+            </tbody>
+          </table>
+          <div style="display: flex; justify-content: center" >
+            <ol style="display: flex; justify-content: space-around; width: 30%; margin-top: 60px;">
+              <li>
+                <a href="#">1</a>
+              </li>
+              <li>
+                <a href="#">2</a>
+              </li>
+              <li>
+                <a href="#">3</a>
+              </li>
+              <li>
+                <a href="#">4</a>
+              </li>
+              <li>
+                <a href="#">5</a>
+              </li>
+            </ol>
+          </div>-->
+        </div>
+        <div class="prod-detail" id="prod-5">
+          <h1>상품문의</h1>
+          <div class="qnaBtn-wrap">
+            <a href="javascript:void(0);" id="popup_btn" class="btn mb15" onclick="modal('ct_qna');">문의 남기기</a>
+          </div>
+          <table style="width: 100%;" class="center">
+            <colgroup>
+              <col style="width: 15%;" />
+              <col style="width: 65%;" />
+              <col style="width: 20%;" />
+            </colgroup>
+            <thead>
+              <tr class="qnaList-wrap">
+                <th colspan="3" style="float: left; padding-left: 10px;">
+                  <input type="checkbox" class="ansOnly">
+                  <span>답변완료만 보기</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody th:each="qna : ${qnaList}">
+              <tr class="qnaList-wrap">
+                <td th:text="${qna.qnaAnsYn == 1 ? '답변완료' : '답변대기'}"></td>
+                <td style="text-align: left;" th:text="${qna.qnaTit}"></td>
+                <td>2024.01.17</td>
+              </tr>
+              <tr class="qnaList-dropdown">
+                <td colspan="3">
+                  <div class="qnaList-dropdown-que">
+                    <?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 10.25C2 13.1495 4.3505 15.5 7.25 15.5H8.75C10.0416 15.5 11.2242 15.0336 12.1387 14.26L13.8787 16L16 13.8787L13.8025 11.6812C13.9312 11.2262 14 10.7462 14 10.25V5.75C14 2.85051 11.6495 0.5 8.75 0.5H7.25C4.35051 0.5 2 2.8505 2 5.75V10.25ZM7.25 3.5C6.00736 3.5 5 4.50736 5 5.75L5 10.25C5 11.4926 6.00736 12.5 7.25 12.5H8.75C9.99264 12.5 11 11.4926 11 10.25V5.75C11 4.50736 9.99264 3.5 8.75 3.5H7.25Z" fill="#a3a3a3"/></svg>
+                    <p th:text="${qna.qnaCn}" class="ml10"></p>
+                  </div>
+                  <div th:if="${qna.qnaAnsYn == 1}" class="qnaList-dropdown-que">
+                    <?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.39854 1H10.6014L15 15H11.8503L10.9089 12H5.09104L4.14966 15H1L5.39854 1ZM8.39854 4L9.9675 9H6.03242L7.60139 4H8.39854Z" fill="#a3a3a3"/></svg>
+                    <p th:text="${qna.qnaAns}" class="ml10"></p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="display: flex; justify-content: center" >
+            <ol style="display: flex; justify-content: space-around; width: 30%; margin-top: 60px;">
+              <li>
+                <a href="#">1</a>
+              </li>
+              <li>
+                <a href="#">2</a>
+              </li>
+              <li>
+                <a href="#">3</a>
+              </li>
+              <li>
+                <a href="#">4</a>
+              </li>
+              <li>
+                <a href="#">5</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="ct_qna">
+      <div class="ct_qna-topbar">
+        <span class="ml10">상품 문의하기</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 24 24" width="40" fill="white" class="modal_close_btn"><path d="M7.314 5.9l3.535-3.536A1 1 0 1 0 9.435.95L5.899 4.485 2.364.95A1 1 0 1 0 .95 2.364l3.535 3.535L.95 9.435a1 1 0 1 0 1.414 1.414l3.535-3.535 3.536 3.535a1 1 0 1 0 1.414-1.414L7.314 5.899z"></path></svg>
+      </div>
+      <div class="ct_qna-mid">
+        <div class="mb15">
+          <p class="qna-font mb10">상품정보</p>
+          <div class="ct_qna-prod-wrap">
+            <img src="./img/instagram.png" class="qna-prod-img mr20" />
+            <span>복분자주</span>
+          </div>
+        </div>
+        <div class="mb15">
+          <p class="qna-font mb10">문의유형</p>
+          <select id="qna-cate" class="ct_qna-cate">
+            <option disabled hidden selected>문의유형을 선택해주세요.</option>
+            <option th:value="1">배송문의</option>
+            <option th:value="2">교환 및 환불</option>
+            <option th:value="3">상품문의</option>
+            <option th:value="4">기타</option>
+          </select>
+        </div>
+        <div class="mb15">
+          <p class="qna-font mb10">제목</p>
+          <input
+              type="text"
+              placeholder="제목을 입력해주세요."
+              class="ct_qna-tit" id="qnaTit"
+          />
+        </div>
+        <div class="mb15">
+          <p class="qna-font mb10">문의내용</p>
+          <textarea
+              placeholder="내용을 입력해주세요."
+              class="ct_qna-cn" id="qnaCn"
+          ></textarea>
+          <input type="checkbox" id="secret-box"/>
+          <span>비밀글</span>
+        </div>
+        <div class="ct_qna-btn-wrap mb15">
+          <a href="javascript:void(0);" class="btn qna-btn" id="qnaSave">등록하기</a>
+        </div>
+        <div>
+          <span>상품문의 시 주의사항</span>
+          <p>주문내역의 변경(확인)에 대한 내용, 주민등록번호, 연락처 등의 정보는 노출되지 않도록 주의해주시기 바랍니다.</p>
+          <p>비방, 음란 등 제반 법령에 저촉되거나 광고성 등 게시글은 사전 고지없이 삭제될 수 있습니다</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</th:block>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/my-layout}">
+
+
+  <!-- 2. Page JS, CSS -->
+  <th:block layout:fragment="css-js">
+    <link rel="stylesheet" type="text/css" th:href="@{/my/css/my-layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/my/css/myPoint.css}">
+    <link rel="stylesheet"  th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}">
+  </th:block>
+
+
+  <th:block layout:fragment="content">
+    <!-- 4.2 Content -->
+    <section>
+      <div class="ct_content-wrap">
+        <div class="title">적립금</div>
+          <div class="content-top">
+            <div class="content-top-info">
+              사용 가능한 적립금
+            </div>
+            <div class="p-flex1">
+                <div class="content-top-view" th:text="${pointGross}"></div>
+                <span>P</span>
+            </div>
+            <div class="content-top-till-wrap">
+                <div class="content-top-till">30일 이내 소멸 예정 적립금</div>
+                <div class="p-flex2">
+                  <div class="content-top-till-view" th:text="${pointGross30}"></div>
+                  <span>P</span>
+                </div>
+            </div>
+          </div>
+       </div>
+      <div class="content-middle">적립금 내역</div>
+        <div class="middle-wrap" th:each="point : ${selectPointList}">
+            <div class="content-middle-box">
+              <div class="content-middle-box-date" th:if="${point.pointStat != 2}" th:text="${point.pointRdate}"></div>
+                <div class="content-middle-box-date" th:if="${point.pointStat == 2}" th:text="${point.pointEdate}"></div>
+                <div class="content-middle-box-info">
+                <div class="box-info-wrap">
+                    <div class="box-gone" th:if="${point.pointStat == 0}">유효기간 만료</div>
+                    <div class="box-point" th:if="${point.pointStat == 1}">적립</div>
+                    <div class="box-use" th:if="${point.pointStat == 2}">사용</div>
+                    <div class="box-stts" th:if="${point.pointStat != 0 and point.pointStat != 2}">구매</div>
+                </div>
+                <div class="box-info-name" th:text="${point.prodTit}">상품명</div>
+                  <div class="f-flex">
+                    <div class="box-info-till" th:if="${point.pointStat != 2}"  th:text="${point.pointTill}"></div>
+                    <span th:if="${point.pointStat != 2}">까지</span>
+                  </div>
+               </div>
+              <span class="color" th:if="${point.pointStat == 1}">+</span>
+              <span class="color-use" th:if="${point.pointStat == 2}">-</span>
+              <div class="content-middle-box-point" th:if="${point.pointStat == 1}" th:text="${point.pointPrice}"></div>
+              <div class="box-gone" th:if="${point.pointStat == 0}" th:text="${point.pointPrice}"></div>
+              <div class="color-use" th:if="${point.pointStat == 2}" th:text="${point.odUsePoint}"></div>
+              <span class="color" th:if="${point.pointStat == 1}">P</span>
+              <span class="color-use" th:if="${point.pointStat == 2}">P</span>
+              <span class="box-gone" th:if="${point.pointStat == 0}">P</span>
+            </div>
+
+
+
+
+
+
+
+
+         </div>
+
+
+        <!-- Pagination -->
+        <div class="pagination" th:object="${ph}" th:style="${#lists.size(selectPointList) == 0 ? 'visibility:hidden;':''}">
+            <th:block th:if="*{showPrev}">
+                <a th:href="@{/my/MyPoint} + ${ph.sc.getQueryString(ph.beginPage-1)}" class="prev">< </a>
+            </th:block>
+            <th:block th:each="num:${#numbers.sequence(ph.beginPage, ph.endPage)}">
+                <a th:href="@{/my/MyPoint} + ${ph.sc.getQueryString(num)}" th:class="${num == ph.sc.page ? 'num current':'num'}">
+                    [[${num}]]
+                </a>
+            </th:block>
+            <th:block th:if="*{showNext}">
+                <a th:href="@{/my/MyPoint} + ${ph.sc.getQueryString(ph.endPage+1)}" class="next"> ></a>
+            </th:block>
+        </div>
+
+
+
+    </section>
+  </th:block>
+
+</html>

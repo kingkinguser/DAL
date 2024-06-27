@@ -1,0 +1,42 @@
+/***********************************************************************************************************************
+©Copyright 2023. DAL. All rights reserved.
+
+File Name       : common.css
+Description     : 공통 css import
+Draft Author    : 이원정
+Draft Date      : 2023.11.10
+
+Revision History
+Ver.    Date         Revised By   Description
+------------------------------------------------------------------------------------------------------------------------
+0.1     2023.11.10    이원정        최초개발
+
+------------------------------------------------------------------------------------------------------------------------
+
+***********************************************************************************************************************/
+
+/*
+Contents
+
+1. 공통 helper css
+2. 공통 element css
+
+*/
+
+/* 1. 공통 helper css */
+@import url(helper.css);
+
+/* 2. 공통 element css */
+@import url(element.css);
+
+/* 3. 공통 layout css */
+@import url(layout.css);
+
+/* 4. 공통 select + input css */
+@import url(select_input.css);
+
+/* 5. 공통 reset css */
+@import url(reset.css);
+
+/* 6. 공통 quick css */
+@import url(quick.css);

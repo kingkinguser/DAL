@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!----------------------------------------------------------------------------------------------------------------------
+©Copyright 2023. DAL. All rights reserved.
+
+File Name       : findPw.html
+Program Name    : 비밀번호 찾기 페이지
+Description     : 이름과 이메일로 조회된 이메일로 임시 비밀번호를 보내어 로그인 할 수 있게 하였습니다.
+Draft Author    : 신호준
+Draft Date      : 2024.02.05
+
+Revision History
+Ver.   Date          Revised By    Description
+------------------------------------------------------------------------------------------------------------------------
+0.1    2024.02.05    신호준         최초개발
+----------------------------------------------------------------------------------------------------------------------->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+
+<!--<th:block th:replace="~{fragments/_head::headFragment}"></th:block>-->
+<!-- 2. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/select_input.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/helper.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/findPw.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet"  th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}">
+</th:block>
+
+
+
+<th:block layout:fragment="content">
+
+    <!-- 4. Main -->
+    <!-- 4. Main -->
+    <main>
+        <div class="findPw_main">
+            <div class="findPw-wrap">
+                <div class="findPw-title">비밀번호찾기</div>
+                <div class="findPw-content mt25">
+                    <form>
+                        <table>
+                            <tr>
+                                <th>이름</th>
+                                <td>
+                                    <input class="input" type="text" id="userName" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>이메일</th>
+                                <td>
+                                    <input class="input" type="text" id="userLginId" required>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <p class="mt15">
+                            <input type="submit" class="btn2" value="취소" >
+                            <button type="button" class="btn1" id="checkEmail" value="찾기">찾기</button>
+
+                        </p>
+                    </form>
+                    <hr>
+                    <div class="text-center small mt-2" id="checkMsg" style="color: red"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--    <div class="modal fade" id="myModal" role="dialog">-->
+<!--        <div class="modal-dialog">-->
+
+<!--            &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header" style="padding:35px 50px;">-->
+<!--                    <h4><span class="glyphicon glyphicon-lock"></span> 비밀번호 찾기</h4>-->
+<!--                </div>-->
+<!--                <div class="modal-body" style="padding:40px 50px;">-->
+<!--                    <div style="color: #ac2925">-->
+<!--                        <center>입력된 정보로 임시 비밀번호가 전송됩니다.</center>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <form role="form">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="userEmail"><span class="glyphicon glyphicon-user"></span>email</label>-->
+<!--                            <input type="text" class="form-control" id="userEmail" placeholder="가입시 등록한 이메일을 입력하세요.">-->
+<!--                        </div>-->
+<!--                        <button type="button" class="btn btn-success btn-block" id="checkEmail">OK</button>-->
+<!--                    </form>-->
+<!--                    <hr>-->
+<!--                    <div class="text-center small mt-2" id="checkMsg" style="color: red"></div>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span-->
+<!--                            class="glyphicon glyphicon-remove"></span> Cancel-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<script>
+
+    // $('.modal').on('hidden.bs.modal', function (e) {
+    //     console.log('modal close');
+    //     $(this).find('form')[0].reset()
+    // });
+
+    $("#checkEmail").click(function () {
+        // let userName = $("#userName").val();
+        let userLginId = $("#userLginId").val();
+        let userName = $("#userName").val();
+        console.log("userName:", userName);
+        console.log("userLginId:", userLginId);
+        $.ajax({
+            type: "GET",
+            url: "/check/findPw",
+            data: {
+                "userName": userName,
+                "userLginId": userLginId
+            },
+            success: function (res) {
+                if (res['check']) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '발송 완료!',
+                        text: '입력하신 이메일로 임시비밀번호가 발송되었습니다.'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/check/findPw/sendEmail",
+                                data: {
+                                    "userName": userName,
+                                    "userLginId": userLginId
+                                },
+                                success: function (response) {
+                                    window.location = "/loginForm";
+                                },
+                                error: function (error) {
+                                    console.error("Error sending email:", error);
+                                }
+                            });
+                        }
+                    });
+                    $('#checkMsg').html('<p style="color:darkblue"></p>');
+                } else {
+                    $('#checkMsg').html('<p style="color:red">일치하는 정보가 없습니다.</p>');
+                }
+            }
+
+        })
+    })
+</script>
+</th:block>
+</html>

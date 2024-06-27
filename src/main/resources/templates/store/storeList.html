@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+
+
+<!-- 2. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+  <link rel="stylesheet" type="text/css" th:href="@{/common/css/layout.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/store/css/storeList.css}">
+  <link rel="stylesheet"  href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}">
+
+
+  <script type="text/javascript" th:src="@{/store/js/storeList.js}"></script>
+<!--  <a href="https://www.flaticon.com/kr/free-icons/" title="별 아이콘">별 아이콘  제작자: Freepik - Flaticon</a>-->
+</th:block>
+
+
+<th:block layout:fragment="content">
+  <main>
+    <div class="ct_main">
+      <!-- 4.2 Search Wrap -->
+      <div class="ct_search-wrap">
+        <div class="search-bar mb5">
+          <input
+              type="text"
+              placeholder="원하시는 술을 검색해보세요."
+              class="search-box"
+          />
+          <img class="search-icon" th:src="@{/store/img/search-icon.png}" />
+        </div>
+        <div class="hashtag-bar mb40">
+          <a href="">#달달함</a>
+          <a href="">#간단하게 마시기 좋은</a>
+        </div>
+      </div>
+      <!-- 4.3 Cate Wrap -->
+<!--      <div class="ct_cate-wrap">-->
+<!--        <div class="ct_cate-title">-->
+          <ul class="ct_cate-wrap">
+            <li data-prodType="0">전체</li>
+            <li data-prodType="4">탁주</li>
+            <li data-prodType="5">증류주</li>
+            <li data-prodType="6">과실주</li>
+            <li data-prodType="7">와인</li>
+          </ul>
+<!--        </div>-->
+<!--        <div class="ct_cate-title"><li>탁주</li></div>-->
+<!--        <div class="ct_cate-title"><li>증류주</li></div>-->
+<!--        <div class="ct_cate-title"><li>과실주</li></div>-->
+<!--        <div class="ct_cate-title"><li>와인</li></div>-->
+<!--      </div>-->
+      <!-- 4.4 Cotent Wrap -->
+      <div class="ct_content-wrap">
+        <!-- 4.4.1 Sale Row -->
+        <div class="sale-row">
+          <!-- <div><select></select></div> -->
+          <!-- First Row -->
+          <ul class="prod-row">
+            <li class="prod-wrap" th:each="prod : ${prodList}" th:attr="data-prodId=${prod.prodId}">
+              <img
+                  src="http://placehold.it/630x700&text=Prod1"
+                  class="prod-card"
+              />
+              <div class="ct_prod">
+                <p class="prod-title mb10" th:text="${prod.prodTit}"></p>
+                <p>#깔끔한 맛</p>
+                <p>#구수한 풍미</p>
+                <div class="ct_price">
+                  <span class="price-area" th:text="${prod.prodSalePrice + '원'}"></span>
+                  <span class="discount-area" th:if="${prod.discountRate != 0}" th:text="${prod.discountRate + '%'}"></span>
+                </div>
+                <div class="ct_icon">
+                  <div class="star-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -2 24 24" width="20" fill="gold"><path d="M10 16.379l-6.173 3.245 1.179-6.874L.01 7.882l6.902-1.003L10 .624l3.087 6.255 6.902 1.003-4.995 4.868 1.18 6.874z"></path></svg>
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="15" fill="gold"><path d="M10 16.379l-6.173 3.245 1.179-6.874L.01 7.882l6.902-1.003L10 .624l3.087 6.255 6.902 1.003-4.995 4.868 1.18 6.874z"></path></svg>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2.5 24 24" width="15" fill="gold" transform="scale(-1, 1)"><path d="M10 15.814L3.827 19.06l1.179-6.875L.01 7.317l6.902-1.003L10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814zm0-2.26l3.517 1.85-.672-3.917 2.846-2.774-3.932-.571L10 4.579 8.241 8.142l-3.932.571 2.846 2.774-.672 3.916L10 13.554zM10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814V.06z"></path></svg>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2.5 24 24" width="15" fill="gold"><path d="M10 13.554l3.517 1.85-.672-3.917 2.846-2.774-3.932-.571L10 4.579 8.241 8.142l-3.932.571 2.846 2.774-.672 3.916L10 13.554zm0 2.26L3.827 19.06l1.179-6.875L.01 7.317l6.902-1.003L10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814z"></path></svg>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2.5 24 24" width="15" fill="gold"><path d="M10 13.554l3.517 1.85-.672-3.917 2.846-2.774-3.932-.571L10 4.579 8.241 8.142l-3.932.571 2.846 2.774-.672 3.916L10 13.554zm0 2.26L3.827 19.06l1.179-6.875L.01 7.317l6.902-1.003L10 .06l3.087 6.254 6.902 1.003-4.995 4.868 1.18 6.875L10 15.814z"></path></svg>-->
+                    <span class="star-avg">4.5</span>
+                    <span class="star-avg ml5">(52)</span>
+                  </div>
+                  <div class="heart-area">
+                    <img class="heart-icon" th:src="@{/my/img/heart.png}" />
+                    <span class="heart-cnt ml5" th:text="${prod.prodLike}"></span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul>
+            <li th:if="${#lists.isEmpty(prodList)}" style="text-align: center; font-size: 25px; color: gray;">
+              <!--<img class="no-prod" th:src="@{/my/img/sad.png}" />-->
+              <!--<img class="no-prod" th:src="@{/store/img/no-prod2.png}" />-->
+              <p>현재 등록된 상품이 없습니다.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</th:block>
+
+</html>

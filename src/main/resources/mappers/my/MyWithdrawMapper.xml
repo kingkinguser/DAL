@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" " http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--
+    파일명        : MyWithdrawMapper.xml
+    최초 작성자    : 박제형
+    최초 작성날짜   : 2024.02.03
+-->
+
+<mapper namespace="kr.co.Dal.my.mapper.MyWithdrawMapper">
+
+
+    <!-- 사용가능한 포인트-->
+    <select id="pointGross" resultType="int">
+        SELECT
+            COALESCE(
+                SUM(CASE WHEN pt.point_rdate IS NOT NULL THEN ot.od_sell_price * 0.01 ELSE 0 END) -
+                SUM(CASE WHEN pt.point_stat = 0 THEN ot.od_sell_price * 0.01 ELSE 0 END) -
+                SUM(CASE WHEN pt.point_stat = 2 THEN pt.od_use_point ELSE 0 END),
+                0
+            ) AS point_calu
+        FROM
+            point_tb pt
+        JOIN
+            od_tb ot
+        ON
+            pt.od_id = ot.od_id
+        WHERE
+            pt.user_id = #{userId}
+
+    </select>
+
+    <!-- 사용가능한 쿠폰 개수-->
+    <select id="couponGross" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            cp_user_tb cut
+        WHERE
+            use_stat = 1
+          AND
+            user_id = #{userId}
+    </select>
+
+
+
+    <!-- 회원 탈퇴 -->
+    <update id="myWithdraw" parameterType="kr.co.Dal.my.model.MyWithdrawVO">
+        UPDATE
+            user_tb
+        SET
+            user_stts = 0,
+            user_wdate = NOW()
+        WHERE
+            user_id = #{userId}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!----------------------------------------------------------------------------------------------------------------------
+©Copyright 2023. DAL. All rights reserved.
+
+File Name       : Head.html
+Program Name    : 웹 페이지 헤드(Head) 부분
+Description     : 웹 페이지의 헤드(Head) 부분에는 메타 정보와 스타일 시트, 스크립트 파일 등이 포함되어 있습니다.
+                  페이지의 제목(title)과 페이지를 설명하는 간단한 내용(description)이 정의되어 있으며,
+                  웹 페이지 제작 시 필요한 외부 라이브러리들(Jquery, Jquery-UI, Jquery SelectBox, Font Icon 등)이 로드되어 있습니다.
+Draft Author    : 이원정
+Draft Date      : 2023.11.10
+
+Revision History
+Ver.   Date          Revised By    Description
+------------------------------------------------------------------------------------------------------------------------
+0.1    2023.11.10    이원정         최초개발
+----------------------------------------------------------------------------------------------------------------------->
+
+<!--
+HTML Contents
+
+1. Page JS, CSS
+2. Page Content
+3. Main
+3.1 Guide Wrap
+3.2 Search Wrap
+3.3 Cotent Wrap
+4. Page Script
+
+JS Contents
+
+https://www.kalia.or.kr:9118/sub03/sub02.php
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+
+<!-- 1. Page JS, CSS -->
+<th:block layout:fragment="css-js">
+    <link rel="stylesheet" type="text/css" th:href="@{/museum/css/museumMain.css}">
+    <script src="/museum/js/museumMain.js" defer></script>
+</th:block>
+
+<!-- 2. Page Content -->
+<th:block layout:fragment="content">
+    <!-- 3. Main -->
+    <main>
+        <div class="ct_main">
+            <div class="ct_liq-main">
+                <!-- 대분류 -->
+                <div class="liq-typeList" id="liq-typeList">
+                    <div class="liq-type" th:data-value="1">
+                        <img th:src="@{/museum/img/soju.png}">
+                        <p>소주</p>
+                    </div>
+                    <div class="liq-type" th:data-value="2">
+                        <img th:src="@{/museum/img/liquer.png}">
+                        <p>리큐르</p>
+                    </div>
+                    <div class="liq-type" th:data-value="3">
+                        <img th:src="@{/museum/img/makgeolli.png}">
+                        <p>막걸리</p>
+                    </div>
+                    <div class="liq-type" th:data-value="4">
+                        <img th:src="@{/museum/img/beer.png}">
+                        <p>맥주</p>
+                    </div>
+                    <div class="liq-type" th:data-value="5">
+                        <img th:src="@{/museum/img/yakju.png}">
+                        <p>약/청주</p>
+                    </div>
+                    <div class="liq-type" th:data-value="6">
+                        <img th:src="@{/museum/img/fruit.png}">
+                        <p>과실주</p>
+                    </div>
+                    <div class="liq-type" th:data-value="7">
+                        <img th:src="@{/museum/img/wine.png}">
+                        <p>와인</p>
+                    </div>
+                    <div class="liq-type" th:data-value="8">
+                        <img th:src="@{/museum/img/wiskey.png}">
+                        <p>위스키</p>
+                    </div>
+                </div>
+                <!-- 소분류 : 술 -->
+                <div class="liq-list" id="liq-list"></div>
+                <div class="liq-box">
+                    <div class="liq-view">
+                        <div class="liq-pic">
+                            <img id="liq-img" >
+                        </div>
+                        <div class="liq-info">
+                            <div class="liq-info-box">
+                                <div class="liq-nm" id="liq-info-nm">여유소주</div>
+                                <div class="liq-memo" id="liq-info-memo">100년 역사를 가진 양촌양조장의 소주를 만나보세요</div>
+                                <div class="liq-features">
+                                    <div class="liq-feature">
+                                        <div>향</div>
+                                        <div class="liq-aroma" id="liq-aroma">■ ■ □ □ □</div>
+                                    </div>
+                                    <div class="liq-feature">
+                                        <div>바디감</div>
+                                        <div class="liq-body" id="liq-body">■ ■ ■ □ □</div>
+                                    </div>
+                                    <div class="liq-feature">
+                                        <div>목넘김</div>
+                                        <div class="liq-smooth" id="liq-smooth">■ ■ □ □ □</div>
+                                    </div>
+                                </div>
+                                <div class="liq-info-view">
+                                    <a href="#" class="btn btnView">상품 구매 →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</th:block>
+
+<!— 4. Page Script —>
+
+</html>
