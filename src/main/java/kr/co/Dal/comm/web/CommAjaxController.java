@@ -53,11 +53,19 @@ public class CommAjaxController {
      */
     @RequestMapping("/comm/commAjaxReplyInsert")
     public String commReplyInsert(ReplyVO replyVO) throws Exception {
+        // 최대값 STEP
         int replyStepMax = commAjaxService.commReplyStepMax(replyVO);
+
+        // 대댓글
         if (replyVO.getReplyGp() != 0 && replyVO.getReplyDepth() != 0) {
             replyVO.setReplyStep(Math.max(replyStepMax, replyVO.getReplyStep()) + 1);
+            
         }
+
+        // 대댓글로 인해 기존 글 STEP 업데이트
         commAjaxService.commReplyStepUpdate(replyVO);
+
+        // 글 INSERT
         commAjaxService.commReplyInsert(replyVO);
 
         return "redirect:/comm/commView?bardId=" + replyVO.getBardId();

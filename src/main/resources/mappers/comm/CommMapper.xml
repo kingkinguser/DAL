@@ -104,7 +104,8 @@
                 reply_stts,
                 reply_gp,
                 reply_depth,
-                reply_step
+                reply_step,
+                reply_parent_id
         ) VALUES (
                 #{replyId},
                 #{bardId},
@@ -113,7 +114,8 @@
                 1,
                 #{replyGp},
                 #{replyDepth},
-                #{replyStep}
+                #{replyStep},
+                #{replyParentId}
         ) ON DUPLICATE KEY UPDATE
         reply_cn = VALUES(reply_cn)
     </insert>
@@ -158,6 +160,7 @@
         WHERE bard_id = #{bardId}
         AND reply_gp = #{replyGp}
         AND reply_depth = #{replyDepth}
+        AND reply_parent_id = #{replyParentId}
     </select>
 
     <!-- 댓글을 중간에 적었을 때 이미 작성된 replyStep 업데이트하기 -->

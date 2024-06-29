@@ -15,6 +15,7 @@ public class ReplyVO{
     private int replyGp;
     private int replyDepth;
     private int replyStep;
+    private int replyParentId;
     private int totalDataCnt;
     private int replyGpMax;
     private int replyIdMax;
