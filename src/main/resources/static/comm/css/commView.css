@@ -119,32 +119,27 @@ button:hover {
 }
 
 /* 답글 버튼 스타일 */
-.edit-button, .delete-button, .insert-button, .cancel-button {
-    background-color: #FFB101;
+.edit-button, .delete-button, .insert-button, .cancel-button, .insert-button, .save {
+    color: #000;
+    padding: 8px;
     color: #fff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.delete-button {
-    background-color: #D00600;
-}
-
-.insert-button {
+    border:1px solid #2E3888;
     background-color: #2E3888;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-right: 10px;
 }
 
-.cancel-button {
-    background-color: black;
+.edit-button:hover, .delete-button:hover, .insert-button:hover, .cancel-button:hover, .insert-button:hover, .save:hover {
+    background-color: #03012D;
+    border: 1px solid #03012D;
+    color: #fff;
 }
 
 /* 답글 영역 스타일 */
 .reply {
-    width: 40%;
-    border-left: 3px solid #03012D;
+    width: 500px;
+    border-left: 3px solid #2E3888;
     background-color: #ecf0f1;
     padding: 15px;
     margin-bottom: 20px;

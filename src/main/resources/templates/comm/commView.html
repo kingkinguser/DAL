@@ -77,9 +77,9 @@ Draft Date      : 2023.11.10
 
                                         <input type="hidden" id="commDetailBardId" name="bardId" th:value="${bardId}" />
                                         <input type="hidden" id="replyId" name="replyId" th:value="${result.replyId}" />
-                                        <input type="text" id="replyGp" name="replyGp" th:value="${result.replyGp}" />
-                                        <input type="text" id="replyStep" name="replyStep" th:value="${result.replyStep}" />
-                                        <input type="text" id="replyDepth" name="replyDepth" th:value="${result.replyDepth}" />
+                                        <input type="hidden" id="replyGp" name="replyGp" th:value="${result.replyGp}" />
+                                        <input type="hidden" id="replyStep" name="replyStep" th:value="${result.replyStep}" />
+                                        <input type="hidden" id="replyDepth" name="replyDepth" th:value="${result.replyDepth}" />
 
                                         <div class="reply" th:id="'reply-' + ${result.replyId}">
                                             <p th:text="'Reply ID: ' + ${result.replyId}"></p>
@@ -104,8 +104,8 @@ Draft Date      : 2023.11.10
                                         <input type="hidden" id="writeReplyIdMax" name="replyId" th:value="${replyMax.replyIdMax}+1" />
                                         <input type="hidden" id="writeReplyGp" name="replyGp" th:value="${result.replyGp}" />
                                         <input type="hidden" id="writeReplyDepth" name="replyDepth" th:value="${result.replyDepth}+1" />
-                                        <input type="text" id="writeReplyStep" name="replyStep" th:value="${result.replyStep}" />
-                                        <input type="text" id="replyParentId" name="replyParentId" th:value="${result.replyId}" />
+                                        <input type="hidden" id="writeReplyStep" name="replyStep" th:value="${result.replyStep}" />
+                                        <input type="hidden" id="replyParentId" name="replyParentId" th:value="${result.replyId}" />
 
                                         <div class="reply" th:id="'reply-' + ${result.replyId}">
                                             <p th:text="답글"></p>

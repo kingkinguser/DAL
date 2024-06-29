@@ -27,7 +27,6 @@ function fnBtn() {
 }
 
 function editButtonClick(replyId) {
-
     // 댓글 수정
     document.getElementById('replyCnView-' + replyId).classList.add('hide');
     document.getElementById('replyCnInsert-' + replyId).classList.remove('hide');
@@ -52,7 +51,6 @@ function cancelButtonClick(replyId) {
     document.getElementById('btnReplyInsert-' + replyId).classList.add('hide');
     document.getElementById('btnReplyReply-' + replyId).classList.remove('hide');
     document.getElementById('commReplyReply-' + replyId).classList.add('hide');
-
 }
 
 function insertButtonClick(replyId) {

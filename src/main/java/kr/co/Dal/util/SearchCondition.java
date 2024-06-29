@@ -65,7 +65,7 @@ public class SearchCondition {
         if (searchKeyword != null && !searchKeyword.isBlank()) {
             builder.queryParam("searchField", getSearchKeyword())
                     .queryParam("searchWord", getSearchValue())
-                    .queryParam("bardType", getSearchValue());
+                    .queryParam("bardType", getBardType());
         }
 
         return builder;
