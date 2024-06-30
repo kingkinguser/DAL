@@ -16,6 +16,7 @@ Draft Date      : 2023.11.10
 <!-- 1. Page JS, CSS -->
 <th:block layout:fragment="css-js">
     <link rel="stylesheet" type="text/css" th:href="@{/comm/css/commWrite.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
     <script src="/comm/js/commWrite.js" defer></script>
 </th:block>
@@ -41,7 +42,7 @@ Draft Date      : 2023.11.10
 
                         <input type="hidden" id="bardId" name="bardId" th:value="${bardId}"/>
 
-                        <table class="tb tb_row">
+                        <table class="tb">
                             <colgroup>
                                 <col style="width:15%;" />
                                 <col style="width:35%;" />
@@ -63,7 +64,7 @@ Draft Date      : 2023.11.10
                             </tr>
                             <tr>
                                 <th>내용 <span>*</span></th>
-                                <td colspan="3"><textarea id="bardCn" name="bardCn" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
+                                <td colspan="3"><textarea id="bardCn" name="bardCn" style="width:90%;"></textarea></td>
                             </tr>
                             </tbody>
                         </table>
@@ -83,16 +84,18 @@ Draft Date      : 2023.11.10
     let oEditors = []
 
     smartEditor = function() {
+      console.log("Naver SmartEditor")
       nhn.husky.EZCreator.createInIFrame({
         oAppRef: oEditors,
         elPlaceHolder: "bardCn",
         sSkinURI: "/smarteditor/SmartEditor2Skin.html",
-        fCreator: "createSEditor2",
-        htParams: { fOnBeforeUnload : function(){}}
+        fCreator: "createSEditor2"
       })
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        smartEditor();
-    });
+    $(document).ready(function() {
+      smartEditor()
+    })
 </script>
+
+

@@ -60,7 +60,7 @@
                     user_id,
                     bard_tit,
                     bard_cn,
-                    bard_stts,
+                    bard_stts
         ) VALUES (
                     #{bardId},
                     #{bardType},
@@ -72,6 +72,8 @@
              bard_type = VALUES(bard_type),
              bard_tit = VALUES(bard_tit),
              bard_cn = VALUES(bard_cn)
+
+
     </insert>
 
     <!-- 게시판 삭제 -->

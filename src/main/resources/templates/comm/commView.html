@@ -151,8 +151,10 @@ Draft Date      : 2023.11.10
                         <input type="hidden" id="firstReplyDepth" name="replyDepth" th:value="0" />
                         <input type="hidden" id="bardId" name="bardId" th:value="${bardId}" />
                         <label for="replyCn">댓글 작성:</label>
-                        <textarea id="replyCn" name="replyCn" rows="4" cols="50"></textarea>
-                        <input type="submit" id="save" class="save" value="저장">
+                        <textarea id="replyCn" name="replyCn"></textarea>
+                        <div class="button-container" style="margin:0px;">
+                            <input type="submit" id="save" class="save" value="저장">
+                        </div>
                     </form>
                 </div>
             </section>

@@ -21,8 +21,10 @@ function fnAjaxWrite() {
            document.getElementById("bardTit").value = "";
            document.getElementById("bardCn").value = "";
 
-           document.getElementById("bardTit").value = response.bardTit;
-           document.getElementById("bardCn").value = response.bardCn;
+           if(response) {
+               document.getElementById("bardTit").value = response.bardTit;
+               document.getElementById("bardCn").value = response.bardCn;
+           }
 
            //oEditors.getById["bardCn"].exec("SET_IR", [""]);
            //oEditors.getById["bardCn"].exec("PASTE_HTML", [response.bardCn]);

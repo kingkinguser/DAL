@@ -43,8 +43,13 @@ table {
 /* 테이블 헤더와 데이터 셀 스타일 */
 th, td {
     padding: 15px;
+    vertical-align: middle;
     text-align: left;
     border: 1px solid #bdc3c7;
+}
+
+th span {
+    color: #2E3888;
 }
 
 /* 테이블 헤더 스타일 */
@@ -88,11 +93,19 @@ textarea {
 
 /* 저장 버튼 스타일 */
 .save {
-    background-color: #007bff;
+    color: #000;
+    padding: 8px;
     color: #fff;
-    padding: 8px 12px;
-    border: none;
+    border:1px solid #2E3888;
+    background-color: #2E3888;
     cursor: pointer;
+    border-radius: 3px;
+}
+
+.save:hover {
+    background-color: #03012D;
+    border: 1px solid #03012D;
+    color: #fff;
 }
 
 /* 저장 버튼 호버 효과 스타일 */

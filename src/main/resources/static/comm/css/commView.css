@@ -112,7 +112,7 @@ button:hover {
 }
 
 /* 답글 버튼 컨테이너 스타일 */
-.reply .button-container {
+.button-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
@@ -127,7 +127,7 @@ button:hover {
     background-color: #2E3888;
     cursor: pointer;
     border-radius: 3px;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .edit-button:hover, .delete-button:hover, .insert-button:hover, .cancel-button:hover, .insert-button:hover, .save:hover {
@@ -181,4 +181,21 @@ button:hover {
 
 .depth-4 {
     padding-left: 200px;
+}
+
+/* 기본적인 textarea 스타일 */
+textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 3px solid #f8f8f8;
+    font-size: 16px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+/* 포커스 시 스타일 */
+textarea:focus {
+    outline: none;
+    border-color: #2E3888;
 }
