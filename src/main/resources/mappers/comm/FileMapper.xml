@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.Dal.comm.mapper.FileMapper">
+
+    <!-- bi_tb 테이블 전체 컬럼 -->
+    <sql id="fileColumns">
+        bi_id,
+        bard_id,
+        bi_ori_nm,
+        bi_nm,
+        bi_size,
+        bi_att,
+        create_date,
+        delete_date
+    </sql>
+
+    <!-- 파일 정보 저장 -->
+    <insert id="saveAll" parameterType="list">
+        insert into bi_tb (
+            <include refid="fileColumns"/>
+        ) values
+        <foreach item="file" collection="list" separator=",">
+        (
+            #{file.biId},
+            #{file.bardId},
+            #{file.biOriNm},
+            #{file.biNm},
+            #{file.biSize},
+            1,
+            NOW(),
+            NULL
+        )
+        </foreach>
+    </insert>
+
+</mapper>
