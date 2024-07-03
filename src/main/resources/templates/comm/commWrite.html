@@ -34,7 +34,7 @@ Draft Date      : 2023.11.10
                 </div>
                 <!-- 4.2.2 Board Content -->
                 <div class="ct_content">
-                    <form action="/comm/commAjaxWriteInsert" method="post" id="frm">
+                    <form action="/comm/commAjaxWriteInsert" method="post" id="frm" enctype="multipart/form-data">
                         <!-- CSRF 토큰을 input으로 추가 -->
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}" th:if="${_csrf}" />
                         <!-- CSRF 헤더를 input으로 추가 -->
@@ -64,7 +64,20 @@ Draft Date      : 2023.11.10
                             </tr>
                             <tr>
                                 <th>첨부파일</th>
-                                <td colspan="3"><input type="file" id="bardFile" name="bardFile" /></td>
+                                <td colspan="3">
+                                    <div class="file_list">
+                                        <div>
+                                            <div class="file_input">
+                                                <input type="text" readonly />
+                                                <label> 첨부파일
+                                                    <input type="file" name="files" onchange="selectFile(this);" />
+                                                </label>
+                                            </div>
+                                            <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+                                            <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <th>내용 <span>*</span></th>

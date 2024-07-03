@@ -1,6 +1,6 @@
 package kr.co.Dal.comm.mapper;
 
-import kr.co.Dal.util.FileRequest;
+import kr.co.Dal.comm.model.FileRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package kr.co.Dal.util;
+package kr.co.Dal.comm.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,10 +11,10 @@ public class FileRequest {
     private int bardId;        // 게시글 번호
     private String biOriNm;   // 원본 파일명
     private String biNm;       // 저장 파일명
-    private int biSize;        // 파일 크기
+    private long biSize;        // 파일 크기
 
     @Builder
-    public FileRequest(String biOriNm, String biNm, int biSize) {
+    public FileRequest(String biOriNm, String biNm, long biSize) {
         this.biOriNm = biOriNm;
         this.biNm = biNm;
         this.biSize = biSize;

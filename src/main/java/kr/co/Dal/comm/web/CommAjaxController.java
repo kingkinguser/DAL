@@ -1,8 +1,12 @@
 package kr.co.Dal.comm.web;
 
 import kr.co.Dal.comm.model.CommVO;
+import kr.co.Dal.comm.model.FileRequest;
+import kr.co.Dal.comm.model.PostRequest;
 import kr.co.Dal.comm.model.ReplyVO;
 import kr.co.Dal.comm.service.CommAjaxService;
+import kr.co.Dal.comm.service.FileService;
+import kr.co.Dal.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -21,13 +27,19 @@ public class CommAjaxController {
 
     @Autowired
     private final CommAjaxService commAjaxService;
+    private final FileService fileService;
+    private final FileUtils fileUtils;
 
-    /**
+   /**
      * 게시판 등록, 수정
      */
     @RequestMapping("/comm/commAjaxWriteInsert")
-    public String commWriteInsert(CommVO commVO) throws Exception{
+    public String commWriteInsert(final PostRequest params, CommVO commVO) throws Exception{
         commAjaxService.commInsert(commVO);
+
+        List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
+        fileService.saveFiles(params.getBiId(), files);
+
         return "redirect:/comm/commList";	//게시글 리스트로 이동
     }
 
