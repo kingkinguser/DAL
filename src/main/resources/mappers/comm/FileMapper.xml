@@ -34,4 +34,48 @@
         </foreach>
     </insert>
 
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllByPostId" parameterType="Integer" resultType="kr.co.Dal.comm.model.FileResponse">
+        select
+            <include refid="fileColumns"/>
+        from
+            bi_tb
+        where
+            bi_att = 1
+            and bard_id = #{value}
+        order by
+            bi_id
+    </select>
+
+    <!-- 파일 리스트 조회(물리적 삭제를 위한) -->
+    <select id="findAllByIds" parameterType="list" resultType="kr.co.Dal.comm.model.FileResponse">
+        select
+            <include refid="fileColumns"/>
+        from
+            bi_tb
+        where
+            bi_att = 1
+            and bi_id in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        order by
+            bi_id
+    </select>
+
+    <!-- 파일 삭제(DB 삭제를 위한) -->
+    <delete id="deleteAllByIds" parameterType="list">
+        update bi_tb
+        set
+            bi_att = 0,
+            deleted_date = NOW()
+        where
+            bi_id in
+            <foreach item="id" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+
+
 </mapper>

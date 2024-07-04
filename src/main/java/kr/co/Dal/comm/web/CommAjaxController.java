@@ -38,7 +38,13 @@ public class CommAjaxController {
         commAjaxService.commInsert(commVO);
 
         List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
-        fileService.saveFiles(params.getBiId(), files);
+
+        System.out.println("----------------------------------------------------");
+        System.out.println(commVO);
+        System.out.println("----------------------------------------------------");
+
+        fileService.saveFiles(commVO.getBardId(), files);
+
 
         return "redirect:/comm/commList";	//게시글 리스트로 이동
     }

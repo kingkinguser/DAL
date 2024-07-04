@@ -122,19 +122,19 @@ textarea {
 
 /* 첨부파일 스타일 */
 .file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:70%; box-sizing:border-box;}
-.file_input label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:95px; height:38px; line-height:38px; background:#777; color:#fff; text-align:center; box-sizing:border-box;}
+.file_input label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:95px; height:38px; background:#777; color:#fff; text-align:center; box-sizing:border-box;}
 .file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
 .file_input input[type=text] {color:#737070; background:#fff; border:1px solid #ccc;}
 .file_list {max-width:none;}
 .file_list > div {position:relative;}
 .file_list > div > input[type=text] {max-width:300px; vertical-align:top;}
-.file_list > div > button {background:linear-gradient(to bottom, #f7f7f7, #f0f0f0); border:1px solid #ccc; vertical-align:top;}
-.file_list > div > button > span {position:relative; padding-left:18px;}
+.file_list > div > button {background:linear-gradient(to bottom, #f7f7f7, #f0f0f0); border:1px solid #ccc; vertical-align:top; cursor:pointer;}
+.file_list > div > button > span {position:relative;}
 .file_list > div > button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
 .file_list > div > button.del_btn {right:95px;}
 .file_list > div > button.del_btn span::before {background-position:0 -27px;}
 .file_list > div > button.fn_add_btn span::before {background-position:-17px -27px;}
-.file_list .file_input {display:inline-block; width:350px; margin-top:0;}
+.file_list .file_input {display:inline-block; width:300px; margin-top:0;}
 
 /* 첨부파일 스타일_이미지 미리보기 */
 .file_upload {overflow:hidden; box-sizing:border-box;}

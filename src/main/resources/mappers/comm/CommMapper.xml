@@ -49,7 +49,7 @@
     </select>
 
     <!-- 게시판 등록, 수정 -->
-    <insert id="commInsert" parameterType="kr.co.Dal.comm.model.CommVO">
+    <insert id="commInsert" parameterType="kr.co.Dal.comm.model.CommVO" useGeneratedKeys="true" keyProperty="bardId">
         INSERT INTO bard_tb (
                     bard_id,
                     bard_type,
@@ -68,8 +68,6 @@
              bard_type = VALUES(bard_type),
              bard_tit = VALUES(bard_tit),
              bard_cn = VALUES(bard_cn)
-
-
     </insert>
 
     <!-- 게시판 삭제 -->
