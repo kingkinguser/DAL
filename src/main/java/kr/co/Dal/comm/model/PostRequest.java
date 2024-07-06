@@ -18,4 +18,5 @@ public class PostRequest {
     private String bardStts;
     private String bardType;
     private List<MultipartFile> files = new ArrayList<>();    // 첨부파일 List
+    private List<Integer> removeFileIds = new ArrayList<>();  // 삭제할 첨부파일 id List
 }

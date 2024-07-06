@@ -8,6 +8,7 @@ Draft Date     : 2023.12.04
 
 document.addEventListener('DOMContentLoaded', function() {
     fnBtn();
+    findAllFile();
 });
 
 function fnBtn() {
@@ -64,11 +65,36 @@ function deleteButtonClick(replyId) {
 
        ajaxAPI("/comm/commAjaxWriteReplyDelete?bardId=" + bardId + "&replyId=" + replyId, null, "GET").then(response => {
             $('#commDetailFrm-' + replyId).remove();
-
        });
 }
 
 function replyButtonClick(replyId) {
     document.getElementById('commReplyReply-' + replyId).classList.remove('hide');
         let bardId = document.getElementById("bardId").value
+}
+
+// 전체 파일 조회
+function findAllFile() {
+    // 1. API 호출
+    let bardId = document.getElementById("bardId").value
+
+    // 2. 로직 종료
+    ajaxAPI("/comm/" + bardId + "/files", null, "GET").then(response => {
+        if (!response.length) {
+            return false;
+        }
+
+    // 3. 파일 영역 추가
+    let fileHtml = '<div class="file_down"><div class="cont">';
+    response.forEach(row => {
+        fileHtml += `<a href="javascript:alert('준비 중입니다.');"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.biOriNm}</a>`;
+    })
+    fileHtml += '</div></div>';
+
+    // 4. 파일 HTML 렌더링
+    document.getElementById('files').innerHTML = fileHtml;
+
+
+    });
+
 }

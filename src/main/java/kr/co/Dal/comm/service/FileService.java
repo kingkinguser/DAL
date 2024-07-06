@@ -55,14 +55,14 @@ public class FileService {
 
     /**
      * 파일 삭제(DB에 있는 첨부파일 삭제)
-     * @param biId - PK 리스트
+     * @param biIds - PK 리스트
      */
     @Transactional
-    public void deleteAllByIds(final List<Integer> biId) {
-        if (CollectionUtils.isEmpty(biId)) {
+    public void deleteAllFileByIds(final List<Integer> biIds) {
+        if (CollectionUtils.isEmpty(biIds)) {
             return;
         }
-        fileMapper.deleteAllByIds(biId);
+        fileMapper.deleteAllByIds(biIds);
     }
 
 }

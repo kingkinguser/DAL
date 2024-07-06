@@ -39,8 +39,10 @@ Draft Date      : 2023.11.10
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}" th:if="${_csrf}" />
                         <!-- CSRF 헤더를 input으로 추가 -->
                         <input type="hidden" name="header" th:value="${_csrf.headerName}" th:if="${_csrf}" />
-
+                        <!-- 게시글 아이디 -->
                         <input type="hidden" id="bardId" name="bardId" th:value="${bardId}"/>
+                        <!-- 삭제 처리할 파일 번호 -->
+                        <input type="hidden" id="removeFileIds" name="removeFileIds" />
 
                         <table class="tb">
                             <colgroup>

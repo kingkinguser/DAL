@@ -68,7 +68,7 @@
         update bi_tb
         set
             bi_att = 0,
-            deleted_date = NOW()
+            delete_date = NOW()
         where
             bi_id in
             <foreach item="id" collection="list" open="(" separator="," close=")">

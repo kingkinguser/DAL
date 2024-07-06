@@ -12,6 +12,6 @@ public class FileResponse {
     private String biNm;                  // 저장 파일명
     private long biSize;                  // 파일 크기
     private int bi_att;                   // 삭제 여부
-    private LocalDateTime createdDate;    // 생성일시
-    private LocalDateTime deletedDate;    // 삭제일시
+    private LocalDateTime createDate;    // 생성일시
+    private LocalDateTime deleteDate;    // 삭제일시
 }

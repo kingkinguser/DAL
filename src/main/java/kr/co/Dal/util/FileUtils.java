@@ -1,7 +1,9 @@
 package kr.co.Dal.util;
 
 import kr.co.Dal.comm.model.FileRequest;
+import kr.co.Dal.comm.model.FileResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,9 +48,16 @@ public class FileUtils {
         }
 
         String biNm = generateSaveFilename(multipartFile.getOriginalFilename());
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
         String uploadPath = getUploadPath(today) + File.separator + biNm;
         File uploadFile = new File(uploadPath);
+
+        System.out.println("uploadFile = " + uploadFile);
+        System.out.println("uploadFile = " + uploadFile);
+        System.out.println("uploadFile = " + uploadFile);
+        System.out.println("uploadFile = " + uploadFile);
+        System.out.println("uploadFile = " + uploadFile);
+
 
         try {
             multipartFile.transferTo(uploadFile);
@@ -78,8 +87,17 @@ public class FileUtils {
      * 업로드 경로 반환
      * @return 업로드 경로
      */
-    private String getUploadPath(String today) {
+    private String getUploadPath() {
         return makeDirectories(uploadPath);
+    }
+
+    /**
+     * 업로드 경로 반환
+     * @param addPath - 추가 경로
+     * @return 업로드 경로
+     */
+    private String getUploadPath(final String addPath) {
+        return makeDirectories(uploadPath + File.separator + addPath);
     }
 
     /**
@@ -95,7 +113,46 @@ public class FileUtils {
         return dir.getPath();
     }
 
+    /**
+     * 파일 삭제 (from Disk)
+     * @param files - 삭제할 파일 정보 List
+     */
+    public void deleteFiles(final List<FileResponse> files) {
+        if(CollectionUtils.isEmpty(files)) {
+            return;
+        }
 
+        for (FileResponse file : files) {
+            String uploadedDate = file.getCreateDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+            deleteFile(uploadedDate, file.getBiNm());
+        }
+    }
 
+    /**
+     * 파일 삭제 (from Disk)
+     * @param addPath - 추가 경로
+     * @param filename - 파일명
+     */
+    private void deleteFile(final String addPath, final String filename) {
+        String filePath = Paths.get(uploadPath, addPath, filename).toString();
+        deleteFile(filePath);
+    }
 
+    /**
+     * 파일 삭제 (from Disk)
+     * @param filePath - 파일 경로
+     */
+    private void deleteFile(final String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            boolean isDeleted = file.delete();
+            if (isDeleted) {
+                System.out.println("파일 삭제 성공: " + filePath);
+            } else {
+                System.err.println("파일 삭제 실패: " + filePath);
+            }
+        } else {
+            System.err.println("파일이 존재하지 않습니다: " + filePath);
+        }
+    }
 }

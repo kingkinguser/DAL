@@ -1,9 +1,6 @@
 package kr.co.Dal.comm.web;
 
-import kr.co.Dal.comm.model.CommVO;
-import kr.co.Dal.comm.model.FileRequest;
-import kr.co.Dal.comm.model.PostRequest;
-import kr.co.Dal.comm.model.ReplyVO;
+import kr.co.Dal.comm.model.*;
 import kr.co.Dal.comm.service.CommAjaxService;
 import kr.co.Dal.comm.service.FileService;
 import kr.co.Dal.util.FileUtils;
@@ -35,16 +32,23 @@ public class CommAjaxController {
      */
     @RequestMapping("/comm/commAjaxWriteInsert")
     public String commWriteInsert(final PostRequest params, CommVO commVO) throws Exception{
+        // 1. 게시글 정보 수정
         commAjaxService.commInsert(commVO);
 
-        List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
+        // 2. 파일 업로드 (to disk)
+        List<FileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
 
-        System.out.println("----------------------------------------------------");
-        System.out.println(commVO);
-        System.out.println("----------------------------------------------------");
+        // 3. 파일 정보 저장 (to database)
+        fileService.saveFiles(commVO.getBardId(), uploadFiles);
 
-        fileService.saveFiles(commVO.getBardId(), files);
+        // 4. 삭제할 파일 정보 조회 (from database)
+        List<FileResponse> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
 
+        // 5. 파일 삭제 (from disk)
+        fileUtils.deleteFiles(deleteFiles);
+
+        // 6. 파일 삭제 (from database)
+        fileService.deleteAllFileByIds(params.getRemoveFileIds());
 
         return "redirect:/comm/commList";	//게시글 리스트로 이동
     }
