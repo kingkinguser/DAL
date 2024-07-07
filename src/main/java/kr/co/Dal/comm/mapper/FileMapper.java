@@ -35,4 +35,13 @@ public interface FileMapper {
      */
     void deleteAllByIds(List<Integer> biId);
 
+    /**
+     * 파일 상세정보 조회
+     * @param biId - PK
+     * @return 파일 상세정보
+     */
+    FileResponse findById(int biId);
+
+
+
 }

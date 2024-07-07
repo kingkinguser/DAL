@@ -44,7 +44,7 @@ const removeFileId = (function() {
 }());
 
 // 파일 선택
-function selectFile(element) {
+function selectFile(element, biId) {
     const file = element.files[0];
     const filename = element.closest('.file_input').firstElementChild;
 
@@ -142,8 +142,6 @@ function findAllFile() {
             fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].biId})`);
             input.value = response[i].biOriNm;
         })
-
-
     });
 
 // 파일 추가

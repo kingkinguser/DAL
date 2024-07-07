@@ -76,6 +76,15 @@
             </foreach>
     </delete>
 
-
+    <!-- 파일 상세정보 조회 -->
+    <select id="findById" parameterType="int" resultType="kr.co.Dal.comm.model.FileResponse">
+        select
+            <include refid="fileColumns"/>
+        from
+            bi_tb
+        where
+            bi_att = 1
+            and bi_id = #{value}
+    </select>
 
 </mapper>

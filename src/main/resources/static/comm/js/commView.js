@@ -87,7 +87,7 @@ function findAllFile() {
     // 3. 파일 영역 추가
     let fileHtml = '<div class="file_down"><div class="cont">';
     response.forEach(row => {
-        fileHtml += `<a href="javascript:alert('준비 중입니다.');"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.biOriNm}</a>`;
+        fileHtml += `<a href="/comm/${bardId}/files/${row.biId}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.biOriNm}</a>`;
     })
     fileHtml += '</div></div>';
 
