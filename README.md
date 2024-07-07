@@ -24,8 +24,8 @@ DAL 프로젝트는 사용자의 위치를 기반으로 사용자가 원하는 �
 - `Java 17`
 - `JDK 17.0.9`
 - **IDE** : IntelliJ IDEA
-- **Framework** : Springboot(2.7.9)
-- **Database** : Maria DB(10.11.7)
+- **Framework** : Springboot(2.x.x)
+- **Database** : Maria DB(10.xx.x)
 - **ORM** : Mybatis
 
 ## 📌 내가 개발한 주요 기능
