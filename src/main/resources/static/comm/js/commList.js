@@ -1,10 +1,4 @@
 "use strict";
-/*
-File Name      : commList.js
-Program Name   : 게시판 목록화면
-Draft Author   :
-Draft Date     : 2023.12.04
-*/
 
 // document.addEventListener
 document.addEventListener('DOMContentLoaded', function() {

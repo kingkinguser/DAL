@@ -65,7 +65,7 @@ Draft Date      : 2023.11.10
                         </div>
                     </div>
 
-                    <div class="ct_subtitle">
+                    <div class="ct_sideTitle">
                         <h3>댓글</h3>
                     </div>
                     <div class="comment">
@@ -152,7 +152,9 @@ Draft Date      : 2023.11.10
                         <input type="hidden" id="firstReplyGpMax" name="replyGp" th:value="${replyMax.replyGpMax}+1" />
                         <input type="hidden" id="firstReplyDepth" name="replyDepth" th:value="0" />
                         <input type="hidden" id="bardId" name="bardId" th:value="${bardId}" />
-                        <label for="replyCn">댓글 작성:</label>
+                        <div class="ct_sideTitle">
+                            <h3>댓글 작성</h3>
+                        </div>
                         <textarea id="replyCn" name="replyCn"></textarea>
                         <div class="button-container" style="margin:0px;">
                             <input type="submit" id="save" class="save" value="저장">

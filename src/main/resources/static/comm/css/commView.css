@@ -1,4 +1,4 @@
-/* 전체 body 스타일 설정 */
+/* 전체 body 스타일 */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -9,7 +9,7 @@ body {
 /* 메인 설정 */
 main {
     justify-content: center;
-    margin: 100px 0px 20px 0px;
+    margin: 100px 0 20px 0;
 }
 
 /* 메인 콘텐츠 래퍼 스타일 */
@@ -27,9 +27,30 @@ section {
 }
 
 /* 소제목 내의 헤딩 스타일 */
+/* 소제목 스타일 */
+.ct_subtitle {
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
 .ct_subtitle h3 {
-    color: #333;
-    margin: 0 0 20px 10px;
+    font-size: 36px;
+    color: #2E3888;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.ct_subtitle h3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background-color: #2E3888;
 }
 
 /* 테이블 스타일 */
@@ -71,14 +92,6 @@ label {
     color: #333;
 }
 
-/* 텍스트 에어리어 스타일 */
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    resize: vertical;
-}
-
 /* 버튼 스타일 */
 button {
     background-color: #007bff;
@@ -111,35 +124,43 @@ button:hover {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* 답글 버튼 컨테이너 스타일 */
-.button-container {
-    display: flex;
-    justify-content: flex-end;
+/* 파일 다운로드 섹션 스타일 */
+.file_down {
     margin-top: 20px;
 }
 
-/* 답글 버튼 스타일 */
-.edit-button, .delete-button, .insert-button, .cancel-button, .insert-button, .save {
-    color: #000;
-    padding: 8px;
-    color: #fff;
-    border:1px solid #2E3888;
-    background-color: #2E3888;
-    cursor: pointer;
-    border-radius: 3px;
-    margin-left: 10px;
+.file_down .cont {
+    display: flex;
+    flex-direction: column;
 }
 
-.edit-button:hover, .delete-button:hover, .insert-button:hover, .cancel-button:hover, .insert-button:hover, .save:hover {
-    background-color: #03012D;
-    border: 1px solid #03012D;
-    color: #fff;
+.file_down .cont a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #2e3888;
+    background-color: #f8f8f8;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s;
+    width: 40%;
+}
+
+.file_down .cont a .icons {
+    margin-right: 10px;
+}
+
+.file_down .cont a:hover {
+    background-color: #e1e8f0;
+    border-color: #2e3888;
 }
 
 /* 답글 영역 스타일 */
 .reply {
     width: 500px;
-    border-left: 3px solid #2E3888;
+    border-left: 3px solid #2e3888;
     background-color: #ecf0f1;
     padding: 15px;
     margin-bottom: 20px;
@@ -153,7 +174,7 @@ button:hover {
 }
 
 .reply p:first-child {
-    color: #03012D;
+    color: #03012d;
     font-weight: bold;
 }
 
@@ -197,5 +218,69 @@ textarea {
 /* 포커스 시 스타일 */
 textarea:focus {
     outline: none;
-    border-color: #2E3888;
+    background-color: #e1e8f0;
+    border-color: #2e3888;
+}
+
+/* 답글 버튼 컨테이너 스타일 */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* 답글 버튼 스타일 */
+.edit-button,
+.delete-button,
+.insert-button,
+.cancel-button,
+.insert-button,
+.save {
+    color: #000;
+    padding: 8px;
+    color: #fff;
+    border: 1px solid #2e3888;
+    background-color: #2e3888;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+/* 답글 버튼 호버 효과 스타일 */
+.edit-button:hover,
+.delete-button:hover,
+.insert-button:hover,
+.cancel-button:hover,
+.insert-button:hover,
+.save:hover {
+    background-color: #03012d;
+    border: 1px solid #03012d;
+    color: #fff;
+}
+
+/* 측면 제목 스타일 */
+.ct_sideTitle {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.ct_sideTitle h3 {
+    font-size: 30px;
+    color: #2e3888;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.ct_sideTitle h3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 4px;
+    background-color: #2e3888;
+    border-radius: 2px;
 }

@@ -9,7 +9,7 @@ body {
 /* 메인 설정 */
 main {
     justify-content: center;
-    margin: 100px 0px 20px 0px;
+    margin: 100px 0 20px 0;
 }
 
 /* 메인 콘텐츠 래퍼 스타일 */
@@ -18,6 +18,8 @@ main {
     width: 95%;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    padding: 20px;
 }
 
 /* 섹션 스타일 */
@@ -31,6 +33,23 @@ section {
 .ct_subtitle h3 {
     color: #333;
     margin: 0 0 20px 10px;
+    font-size: 36px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* 소제목 밑줄 스타일 */
+.ct_subtitle h3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background-color: #2e3888;
 }
 
 /* 테이블 스타일 */
@@ -46,10 +65,6 @@ th, td {
     vertical-align: middle;
     text-align: left;
     border: 1px solid #bdc3c7;
-}
-
-th span {
-    color: #2E3888;
 }
 
 /* 테이블 헤더 스타일 */
@@ -96,21 +111,16 @@ textarea {
     color: #000;
     padding: 8px;
     color: #fff;
-    border:1px solid #2E3888;
-    background-color: #2E3888;
+    border: 1px solid #2e3888;
+    background-color: #2e3888;
     cursor: pointer;
     border-radius: 3px;
 }
 
 .save:hover {
-    background-color: #03012D;
-    border: 1px solid #03012D;
+    background-color: #03012d;
+    border: 1px solid #03012d;
     color: #fff;
-}
-
-/* 저장 버튼 호버 효과 스타일 */
-.save:hover {
-    background-color: #0056b3;
 }
 
 /* 버튼 컨테이너 스타일 */
@@ -121,37 +131,240 @@ textarea {
 }
 
 /* 첨부파일 스타일 */
-.file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:70%; box-sizing:border-box;}
-.file_input label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:95px; height:38px; background:#777; color:#fff; text-align:center; box-sizing:border-box;}
-.file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
-.file_input input[type=text] {color:#737070; background:#fff; border:1px solid #ccc;}
-.file_list {max-width:none;}
-.file_list > div {position:relative;}
-.file_list > div > input[type=text] {max-width:300px; vertical-align:top;}
-.file_list > div > button {background:linear-gradient(to bottom, #f7f7f7, #f0f0f0); border:1px solid #ccc; vertical-align:top; cursor:pointer;}
-.file_list > div > button > span {position:relative;}
-.file_list > div > button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
-.file_list > div > button.del_btn {right:95px;}
-.file_list > div > button.del_btn span::before {background-position:0 -27px;}
-.file_list > div > button.fn_add_btn span::before {background-position:-17px -27px;}
-.file_list .file_input {display:inline-block; width:300px; margin-top:0;}
+.file_input {
+    margin: 2px 0;
+    overflow: hidden;
+    position: relative;
+    padding-right: 100px;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.file_input label {
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    border-radius: 0;
+    display: inline-block;
+    overflow: hidden;
+    width: 95px;
+    height: 38px;
+    background: #2e3888;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.file_input label input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+}
+
+.file_input input[type=text] {
+    color: #737070;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.file_list {
+    max-width: none;
+}
+
+.file_list > div {
+    position: relative;
+}
+
+.file_list > div > input[type=text] {
+    max-width: 300px;
+    vertical-align: top;
+}
+
+.file_list > div > button {
+    background: linear-gradient(to bottom, #f7f7f7, #f0f0f0);
+    border: 1px solid #ccc;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.file_list > div > button > span {
+    position: relative;
+}
+
+.file_list > div > button > span::before {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
+
+.file_list > div > button.del_btn {
+    right: 95px;
+}
+
+.file_list > div > button.del_btn span::before {
+    background-position: 0 -27px;
+}
+
+.file_list > div > button.fn_add_btn span::before {
+    background-position: -17px -27px;
+}
+
+.file_list .file_input {
+    display: inline-block;
+    width: 300px;
+    margin-top: 0;
+}
 
 /* 첨부파일 스타일_이미지 미리보기 */
-.file_upload {overflow:hidden; box-sizing:border-box;}
-.file_upload label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:100%; height:100%;}
-.file_upload label i {display:block; background:#999; width:26px; height:26px; border-radius:50px; position:absolute; bottom:0; right:0; text-indent:-9999px;}
-.file_upload label i::after {background-position:-35px -27px; width:14px; height:11px; position:absolute; top:50%; left:50%; margin:-5px 0 0 -7px;}
-.file_upload label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
-.file_upload input[type=text] {color:#737070; background:#f9f9f9; border:1px solid #d5d5d5; display:none;}
-.file_preview {max-width:90px; margin-bottom:10px; position:relative;}
-.file_preview > a {display:block;}
-.file_preview .thumb_wrap {border:1px solid #eee; background:#fff; background-size:cover; border-radius:50px;}
-.file_preview .thumb_wrap > p {padding-top:100%;}
+.file_upload {
+    overflow: hidden;
+    box-sizing: border-box;
+}
 
-/* 첨부파일 다운로드 */
-.file_down {border:1px solid #e0e0e0; border-radius:5px; overflow:hidden;}
-.file_down > strong {display:block; border-bottom:1px solid #e0e0e0; color:#333; font-size:13px; font-weight:400; padding:7px 10px;}
-.file_down .cont {background:#f9f9f9; padding:4px 0;}
-.file_down .cont > a {display:block; padding:4px 10px; padding-left:40px; min-height:23px; font-size:13px; position:relative;}
-.file_down .cont > a > span {display:inline-block; background:#aaa; width:23px; height:23px; border-radius:100%; position:absolute; top:3px; left:10px; text-align:center;}
-.file_down .cont > a > span i {color:#fff; position:relative; top:2px; font-size:12px;}
+.file_upload label {
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    border-radius: 0;
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.file_upload label i {
+    display: block;
+    background: #999;
+    width: 26px;
+    height: 26px;
+    border-radius: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-indent: -9999px;
+}
+
+.file_upload label i::after {
+    background-position: -35px -27px;
+    width: 14px;
+    height: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -5px 0 0 -7px;
+}
+
+.file_upload label input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+}
+
+.file_upload input[type=text] {
+    color: #737070;
+    background: #f9f9f9;
+    border: 1px solid #d5d5d5;
+    display: none;
+}
+
+.file_preview {
+    max-width: 90px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.file_preview > a {
+    display: block;
+}
+
+.file_preview .thumb_wrap {
+    border: 1px solid #eee;
+    background: #fff;
+    background-size: cover;
+    border-radius: 50px;
+}
+
+.file_preview .thumb_wrap > p {
+    padding-top: 100%;
+}
+
+#bardType {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+    color: #333;
+}
+
+/* 드롭다운 호버 효과 */
+#bardType:hover {
+    border-color: #aaa;
+}
+
+/* 드롭다운 포커스 효과 */
+#bardType:focus {
+    outline: none;
+    border-color: #4d90fe; /* 포커스 색상 예시 */
+    box-shadow: 0 0 5px rgba(77, 144, 254, 0.5); /* 포커스 그림자 예시 */
+}
+
+/* 옵션 스타일링 */
+#bardType option {
+    padding: 8px;
+}
+
+#bardTit {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #333;
+}
+
+#bardTit::placeholder {
+    color: #999;
+}
+
+.ct_subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ct_subtitle h3 {
+    font-size: 36px;
+    color: #2e3888;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.ct_subtitle h3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background-color: #2e3888;
+}
