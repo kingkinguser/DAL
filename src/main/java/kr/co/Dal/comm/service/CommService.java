@@ -4,10 +4,12 @@ import kr.co.Dal.comm.mapper.CommMapper;
 import kr.co.Dal.comm.model.CommVO;
 import kr.co.Dal.comm.model.ReplyVO;
 import kr.co.Dal.my.model.MyBoardVO;
+import kr.co.Dal.user.config.auth.PrincipalDetails;
 import kr.co.Dal.util.PageHandler;
 import kr.co.Dal.util.SearchCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -46,9 +48,13 @@ public class CommService {
     /**
      * 게시판 상세페이지
      */
-    public CommVO commViewSelect(Model model, CommVO commVO) {
+    public CommVO commViewSelect(Model model, CommVO commVO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        // 로그인 ID 설정
+        int loginId = (principalDetails != null) ? principalDetails.getUserId() : 0;
 
         CommVO commDetail = commMapper.commViewSelect(commVO);
+        model.addAttribute("loginId", loginId);
         model.addAttribute("commDetail", commDetail);
 
         return commDetail;

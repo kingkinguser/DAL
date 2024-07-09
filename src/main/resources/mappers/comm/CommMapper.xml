@@ -51,24 +51,23 @@
     <!-- 게시판 등록, 수정 -->
     <insert id="commInsert" parameterType="kr.co.Dal.comm.model.CommVO" useGeneratedKeys="true" keyProperty="bardId">
         INSERT INTO bard_tb (
-                    bard_id,
                     bard_type,
                     user_id,
                     bard_tit,
                     bard_cn,
                     bard_stts
         ) VALUES (
-                    #{bardId},
                     #{bardType},
-                    1,
+                    #{userId},
                     #{bardTit},
                     #{bardCn},
                     1
         ) ON DUPLICATE KEY UPDATE
-             bard_type = VALUES(bard_type),
-             bard_tit = VALUES(bard_tit),
-             bard_cn = VALUES(bard_cn)
+                    bard_type = VALUES(bard_type),
+                    bard_tit = VALUES(bard_tit),
+                    bard_cn = VALUES(bard_cn)
     </insert>
+
 
     <!-- 게시판 삭제 -->
     <update id="commDelete" parameterType="kr.co.Dal.comm.model.CommVO">
@@ -85,8 +84,16 @@
 
     <!-- 게시판 상세 조회 -->
     <select id="commViewSelect" parameterType="kr.co.Dal.comm.model.CommVO" resultType="kr.co.Dal.comm.model.CommVO">
-        SELECT *
-        FROM bard_tb
+        SELECT  A.bard_id,
+                A.bard_type,
+                A.bard_tit,
+                A.bard_cn,
+                A.bard_rdate,
+                A.bard_cnt,
+                B.user_id,
+                B.user_nick
+        FROM bard_tb A left join user_tb B
+        on A.user_id = B.user_id
         WHERE bard_id = #{bardId}
     </select>
 
@@ -118,14 +125,16 @@
 
     <!-- 게시판 댓글 조회 -->
     <select id="commReplyView" parameterType="kr.co.Dal.util.SearchCondition"  resultType="kr.co.Dal.comm.model.ReplyVO">
-        SELECT  reply_id,
-                reply_user_id,
-                reply_cn,
-                reply_rdate,
-                reply_gp,
-                reply_depth,
-                reply_step
-        FROM reply_tb
+        SELECT  A.reply_id,
+                A.reply_user_id,
+                A.reply_cn,
+                A.reply_rdate,
+                A.reply_gp,
+                A.reply_depth,
+                A.reply_step,
+                B.user_nick
+        FROM reply_tb A left join user_tb B
+        on A.reply_user_id = B.user_id
         WHERE bard_id = #{bardId} and reply_stts = 1
         ORDER BY reply_gp,
                  reply_step,

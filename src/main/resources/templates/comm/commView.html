@@ -33,8 +33,8 @@ Draft Date      : 2023.11.10
                     <div class="comm-comment">
                         <table id="fieldListBody">
                             <tr>
-                                <th>작성자</th>
-                                <td th:utext="${commDetail.userId}"></td>
+                                <th>닉네임</th>
+                                <td th:utext="${commDetail.userNick}"></td>
                             </tr>
                             <tr>
                                 <th>제목</th>
@@ -59,7 +59,7 @@ Draft Date      : 2023.11.10
                                 </td>
                             </tr>
                         </table>
-                        <div class="button-container">
+                        <div th:if="${loginId} == ${commDetail.userId}" class="button-container">
                             <input type="button" class="edit-button" id="btnUpdate" value="수정">
                             <input type="button" class="delete-button" id="btnDelete" value="삭제">
                         </div>
@@ -84,16 +84,16 @@ Draft Date      : 2023.11.10
                                         <input type="hidden" id="replyDepth" name="replyDepth" th:value="${result.replyDepth}" />
 
                                         <div class="reply" th:id="'reply-' + ${result.replyId}">
-                                            <p th:text="'Reply ID: ' + ${result.replyId}"></p>
+                                            <p th:text="'닉네임: ' + ${result.userNick}"></p>
                                             <p th:id="'replyCnView-' + ${result.replyId}" th:text="${result.replyCn}"></p>
                                             <input type="text" th:id="'replyCnInsert-' + ${result.replyId}" name="replyCn" class="styled-input hide" th:value="${result.replyCn}">
                                             <p th:text="'Date: ' + ${result.replyRdate}"></p>
                                             <div class="button-container">
-                                                <input type="button" class="edit-button" th:id="'btnReplyUpdate-' + ${result.replyId}" value="수정" th:onclick="'editButtonClick(' + ${result.replyId} + ')'">
-                                                <input type="button" class="delete-button" th:id="'btnReplyDelete-' + ${result.replyId}" value="삭제" th:onclick="'deleteButtonClick(' + ${result.replyId} + ')'">
+                                                <input th:if="${loginId} == ${result.replyUserId}" type="button" class="edit-button" th:id="'btnReplyUpdate-' + ${result.replyId}" value="수정" th:onclick="'editButtonClick(' + ${result.replyId} + ')'">
+                                                <input th:if="${loginId} == ${result.replyUserId}" type="button" class="delete-button" th:id="'btnReplyDelete-' + ${result.replyId}" value="삭제" th:onclick="'deleteButtonClick(' + ${result.replyId} + ')'">
+                                                <input th:if="${loginId} == ${result.replyUserId}" type="button" class="cancel-button" th:id="'btnReplyReply-' + ${result.replyId}" value="답글" th:onclick="'replyButtonClick(' + ${result.replyId} + ')'">
                                                 <input type="submit" class="insert-button hide" th:id="'btnReplyInsert-' + ${result.replyId}" value="저장" th:onclick="'insertButtonClick(' + ${result.replyId} + ')'">
                                                 <input type="button" class="cancel-button hide" th:id="'btnReplyCancel-' + ${result.replyId}" value="취소" th:onclick="'cancelButtonClick(' + ${result.replyId} + ')'">
-                                                <input type="button" class="cancel-button" th:id="'btnReplyReply-' + ${result.replyId}" value="답글" th:onclick="'replyButtonClick(' + ${result.replyId} + ')'">
                                             </div>
                                         </div>
                                     </form>

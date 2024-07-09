@@ -6,10 +6,12 @@ package kr.co.Dal.comm.web;
 import kr.co.Dal.comm.model.CommVO;
 import kr.co.Dal.comm.model.ReplyVO;
 import kr.co.Dal.comm.service.CommService;
+import kr.co.Dal.user.config.auth.PrincipalDetails;
 import kr.co.Dal.util.SearchCondition;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,20 +53,23 @@ public class CommController {
                            @RequestParam Map map,
                            CommVO commVO,
                            ReplyVO replyVO,
-                           @ModelAttribute SearchCondition sc) {
+                           @ModelAttribute SearchCondition sc,
+                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
+
+        // 게시판 id 값
         model.addAttribute("bardId", bardId);
 
-        //게시판 상세
-        commService.commViewSelect(model, commVO);
+        // 게시판 상세
+        commService.commViewSelect(model, commVO, principalDetails);
 
-        //조회수
+        // 조회수
         commService.commUpdateLike(commVO);
 
         // 검색어
         sc.setMap(map);
         
-        //게시판 상세 댓글
+        // 게시판 상세 댓글
         commService.commReplyView(model, replyVO, sc);
 
         return "/comm/commView";
@@ -74,7 +79,8 @@ public class CommController {
      * 게시판 등록/수정 페이지
      */
     @RequestMapping("/commWrite")
-    public String commWrite(Model model, @RequestParam(name = "bardId", required = false, defaultValue = "0") int bardId) {
+    public String commWrite(Model model,
+                            @RequestParam(name = "bardId", required = false, defaultValue = "0") int bardId) {
         model.addAttribute("bardId", bardId);
         return "/comm/commWrite";
     }

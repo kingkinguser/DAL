@@ -3,11 +3,13 @@ package kr.co.Dal.comm.web;
 import kr.co.Dal.comm.model.*;
 import kr.co.Dal.comm.service.CommAjaxService;
 import kr.co.Dal.comm.service.FileService;
+import kr.co.Dal.user.config.auth.PrincipalDetails;
 import kr.co.Dal.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,23 +33,31 @@ public class CommAjaxController {
      * 게시판 등록, 수정
      */
     @RequestMapping("/comm/commAjaxWriteInsert")
-    public String commWriteInsert(final PostRequest params, CommVO commVO) throws Exception{
-        // 1. 게시글 정보 수정
+    public String commWriteInsert(final PostRequest params, CommVO commVO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception{
+
+        // 1. 로그인 아이디 확인
+        int userId;
+        if(principalDetails != null){
+            userId = principalDetails.getUserId();
+            commVO.setUserId(userId);
+        }
+
+        // 2. 게시글 정보 등록 / 수정
         commAjaxService.commInsert(commVO);
 
-        // 2. 파일 업로드 (to disk)
+        // 3. 파일 업로드 (to disk)
         List<FileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
 
-        // 3. 파일 정보 저장 (to database)
+        // 4. 파일 정보 저장 (to database)
         fileService.saveFiles(commVO.getBardId(), uploadFiles);
 
-        // 4. 삭제할 파일 정보 조회 (from database)
+        // 5. 삭제할 파일 정보 조회 (from database)
         List<FileResponse> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
 
-        // 5. 파일 삭제 (from disk)
+        // 6. 파일 삭제 (from disk)
         fileUtils.deleteFiles(deleteFiles);
 
-        // 6. 파일 삭제 (from database)
+        // 7. 파일 삭제 (from database)
         fileService.deleteAllFileByIds(params.getRemoveFileIds());
 
         return "redirect:/comm/commList";	//게시글 리스트로 이동
@@ -74,7 +84,15 @@ public class CommAjaxController {
      * 게시판 댓글 등록, 수정
      */
     @RequestMapping("/comm/commAjaxReplyInsert")
-    public String commReplyInsert(ReplyVO replyVO) throws Exception {
+    public String commReplyInsert(ReplyVO replyVO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+
+        // 로그인 아이디 확인
+        int userId;
+        if(principalDetails != null){
+            userId = principalDetails.getUserId();
+            replyVO.setReplyUserId(userId);
+        }
+
         // 최대값 STEP
         int replyStepMax = commAjaxService.commReplyStepMax(replyVO);
 

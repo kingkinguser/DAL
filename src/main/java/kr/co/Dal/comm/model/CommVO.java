@@ -8,16 +8,17 @@ import java.sql.Date;
 
 @Data
 public class CommVO {
-    private int bardId;        // 게시글ID
-    private int userId;        // 회원ID
-    private int bardType;      // 게시글 유형
-    private String bardTit;        // 제목
-    private String bardCn;         // 내용
-    private Date bardRdate;        // 등록일
-    private int bardCnt;       // 조회수
-    private int bardLike_cnt;  // 좋아요수
-    private int bardStts;      // 게시글상태(1:유효/0:무효)
-    private String searchKeyword;
-    private String searchValue;
+    private int bardId;           // 게시글ID
+    private int userId;           // 회원ID
+    private int bardType;         // 게시글 유형
+    private String bardTit;       // 제목
+    private String bardCn;        // 내용
+    private Date bardRdate;       // 등록일
+    private int bardCnt;          // 조회수
+    private int bardLike_cnt;     // 좋아요수
+    private int bardStts;         // 게시글상태(1:유효/0:무효)
+    private String searchKeyword; // 검색 조건
+    private String searchValue;   // 검색 값
+    private String userNick;      // 회원 닉네임
 
 }

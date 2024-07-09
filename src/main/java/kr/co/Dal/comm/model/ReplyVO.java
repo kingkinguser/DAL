@@ -8,7 +8,8 @@ import java.sql.Date;
 public class ReplyVO{
     private int replyId;
     private int bardId;
-    private String replyUserId;
+    private int replyUserId;
+    private String userNick;
     private String replyCn;
     private Date replyRdate;
     private int replyStts;
