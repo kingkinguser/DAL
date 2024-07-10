@@ -54,9 +54,7 @@ Draft Date      : 2023.11.10
                             </tr>
                             <tr>
                                 <th scope="row">첨부파일</th>
-                                <td id="files" colspan="3">
-
-                                </td>
+                                <td id="files" colspan="3"></td>
                             </tr>
                         </table>
                         <div th:if="${loginId} == ${commDetail.userId}" class="button-container">
@@ -84,10 +82,10 @@ Draft Date      : 2023.11.10
                                         <input type="hidden" id="replyDepth" name="replyDepth" th:value="${result.replyDepth}" />
 
                                         <div class="reply" th:id="'reply-' + ${result.replyId}">
-                                            <p th:text="'닉네임: ' + ${result.userNick}"></p>
-                                            <p th:id="'replyCnView-' + ${result.replyId}" th:text="${result.replyCn}"></p>
+                                            <p class="round" th:text="${result.userNick}"></p>
+                                            <p th:id="'replyCnView-' + ${result.replyId}" th:text="'📝' + ${result.replyCn}"></p>
                                             <input type="text" th:id="'replyCnInsert-' + ${result.replyId}" name="replyCn" class="styled-input hide" th:value="${result.replyCn}">
-                                            <p th:text="'Date: ' + ${result.replyRdate}"></p>
+                                            <p th:text="'📅 ' + ${result.replyRdate}"></p>
                                             <div class="button-container">
                                                 <input th:if="${loginId} == ${result.replyUserId}" type="button" class="edit-button" th:id="'btnReplyUpdate-' + ${result.replyId}" value="수정" th:onclick="'editButtonClick(' + ${result.replyId} + ')'">
                                                 <input th:if="${loginId} == ${result.replyUserId}" type="button" class="delete-button" th:id="'btnReplyDelete-' + ${result.replyId}" value="삭제" th:onclick="'deleteButtonClick(' + ${result.replyId} + ')'">
