@@ -17,10 +17,9 @@ Draft Date      : 2024.01.01
 <th:block layout:fragment="css-js">
   <link rel="stylesheet" type="text/css" th:href="@{/preferTest/css/preferResult.css}">
   <script src="/preferTest/js/preferResult.js" defer></script>
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script>
-    Kakao.init('617c64aeafcfa7bd484ea2b0d79f230b');
-    Kakao.isInitialized();
+    Kakao.init('');
   </script>
 </th:block>
 
@@ -56,7 +55,7 @@ Draft Date      : 2024.01.01
             </table>
 
             <div class="button-container">
-              <a id="kakaotalk-sharing-btn" href="javascript:kakaoShare()">
+              <a id="kakaotalk-sharing-btn" href="javascript:sendKakao()">
                 <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
                      alt="카카오톡 공유 보내기 버튼" />
               </a>

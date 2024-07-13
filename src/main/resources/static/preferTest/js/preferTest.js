@@ -51,7 +51,7 @@ function fnBtn(srvQueId) {
             // 진행바
             let progressBar = document.getElementById('progressBar');
             let currentWidth = parseFloat(progressBar.style.width) || 0;
-            let newWidth = currentWidth + 25;
+            let newWidth = currentWidth + 20;
 
             if (newWidth <= 100) {
               progressBar.style.width = newWidth + '%';
